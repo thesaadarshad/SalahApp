@@ -729,10 +729,14 @@ const App = {
             const mapsUrl = `https://www.google.com/maps/search/${encodeURIComponent(searchQuery)}`;
             mosqueLink.href = mapsUrl;
         } 
-        // For auto-detected location, use coordinates
+        // For auto-detected location, use coordinates with proper query format
         else if (latitude && longitude) {
-            const mapsUrl = `https://www.google.com/maps/search/mosque/@${latitude},${longitude},14z`;
+            // Use the query parameter format which works better on mobile
+            const mapsUrl = `https://www.google.com/maps/search/?api=1&query=mosque&query_place_id=&center=${latitude},${longitude}&zoom=14`;
             mosqueLink.href = mapsUrl;
+        } else {
+            // Fallback: just search for mosques (should rarely happen)
+            mosqueLink.href = 'https://www.google.com/maps/search/mosque';
         }
     },
 
