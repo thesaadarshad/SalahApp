@@ -141,6 +141,156 @@ const App = {
                 Maghrib: 'मग़रिब',
                 Isha: 'इशा'
             }
+        },
+        tr: {
+            timeUntil: 'Kalan süre',
+            todaysPrayerTimes: "Bugünün Namaz Vakitleri",
+            hours: 'saat',
+            minutes: 'dakika',
+            seconds: 'saniye',
+            detectingLocation: 'Konumunuz tespit ediliyor...',
+            unableToLoad: 'Namaz vakitleri yüklenemedi',
+            tryAgain: 'Tekrar Dene',
+            dataProvidedBy: 'Veri sağlayıcı',
+            changeLocation: 'Değiştir',
+            updateLocationBtn: 'Güncelle',
+            changeLocationTitle: 'Konumu Değiştir',
+            changeLocationDesc: 'Doğru namaz vakitleri için şehir ve ülke adınızı girin.',
+            cityLabel: 'Şehir Adı',
+            countryLabel: 'Ülke',
+            cityPlaceholder: 'örn., İstanbul',
+            countryPlaceholder: 'örn., Türkiye',
+            cancel: 'İptal',
+            updateLocation: 'Konumu Güncelle',
+            findNearbyMosque: 'Yakındaki Cami Bul',
+            prayers: {
+                Fajr: 'İmsak',
+                Sunrise: 'Güneş',
+                Dhuhr: 'Öğle',
+                Asr: 'İkindi',
+                Maghrib: 'Akşam',
+                Isha: 'Yatsı'
+            }
+        },
+        id: {
+            timeUntil: 'Waktu tersisa',
+            todaysPrayerTimes: 'Waktu Shalat Hari Ini',
+            hours: 'jam',
+            minutes: 'menit',
+            seconds: 'detik',
+            detectingLocation: 'Mendeteksi lokasi Anda...',
+            unableToLoad: 'Tidak dapat memuat waktu shalat',
+            tryAgain: 'Coba Lagi',
+            dataProvidedBy: 'Data disediakan oleh',
+            changeLocation: 'Ubah',
+            updateLocationBtn: 'Perbarui',
+            changeLocationTitle: 'Ubah Lokasi',
+            changeLocationDesc: 'Masukkan nama kota dan negara untuk mendapatkan waktu shalat yang akurat.',
+            cityLabel: 'Nama Kota',
+            countryLabel: 'Negara',
+            cityPlaceholder: 'contoh, Jakarta',
+            countryPlaceholder: 'contoh, Indonesia',
+            cancel: 'Batal',
+            updateLocation: 'Perbarui Lokasi',
+            findNearbyMosque: 'Cari Masjid Terdekat',
+            prayers: {
+                Fajr: 'Subuh',
+                Sunrise: 'Terbit',
+                Dhuhr: 'Dzuhur',
+                Asr: 'Ashar',
+                Maghrib: 'Maghrib',
+                Isha: 'Isya'
+            }
+        },
+        fa: {
+            timeUntil: 'زمان باقی‌مانده تا',
+            todaysPrayerTimes: 'اوقات نماز امروز',
+            hours: 'ساعت',
+            minutes: 'دقیقه',
+            seconds: 'ثانیه',
+            detectingLocation: 'در حال تشخیص موقعیت شما...',
+            unableToLoad: 'بارگذاری اوقات نماز ممکن نیست',
+            tryAgain: 'تلاش مجدد',
+            dataProvidedBy: 'داده‌ها ارائه شده توسط',
+            changeLocation: 'تغییر',
+            updateLocationBtn: 'به‌روزرسانی',
+            changeLocationTitle: 'تغییر موقعیت',
+            changeLocationDesc: 'نام شهر و کشور خود را برای دریافت اوقات نماز دقیق وارد کنید.',
+            cityLabel: 'نام شهر',
+            countryLabel: 'کشور',
+            cityPlaceholder: 'مثال، تهران',
+            countryPlaceholder: 'مثال، ایران',
+            cancel: 'لغو',
+            updateLocation: 'به‌روزرسانی موقعیت',
+            findNearbyMosque: 'یافتن مسجد نزدیک',
+            prayers: {
+                Fajr: 'صبح',
+                Sunrise: 'طلوع آفتاب',
+                Dhuhr: 'ظهر',
+                Asr: 'عصر',
+                Maghrib: 'مغرب',
+                Isha: 'عشاء'
+            }
+        },
+        fr: {
+            timeUntil: 'Temps restant',
+            todaysPrayerTimes: "Horaires de Prière d'Aujourd'hui",
+            hours: 'heures',
+            minutes: 'minutes',
+            seconds: 'secondes',
+            detectingLocation: 'Détection de votre position...',
+            unableToLoad: 'Impossible de charger les horaires de prière',
+            tryAgain: 'Réessayer',
+            dataProvidedBy: 'Données fournies par',
+            changeLocation: 'Modifier',
+            updateLocationBtn: 'Actualiser',
+            changeLocationTitle: 'Modifier la Position',
+            changeLocationDesc: 'Entrez le nom de votre ville et pays pour obtenir des horaires de prière précis.',
+            cityLabel: 'Nom de la Ville',
+            countryLabel: 'Pays',
+            cityPlaceholder: 'ex., Paris',
+            countryPlaceholder: 'ex., France',
+            cancel: 'Annuler',
+            updateLocation: 'Actualiser la Position',
+            findNearbyMosque: 'Trouver une Mosquée à Proximité',
+            prayers: {
+                Fajr: 'Fajr',
+                Sunrise: 'Lever du Soleil',
+                Dhuhr: 'Dhuhr',
+                Asr: 'Asr',
+                Maghrib: 'Maghrib',
+                Isha: 'Isha'
+            }
+        },
+        bn: {
+            timeUntil: 'বাকি সময়',
+            todaysPrayerTimes: 'আজকের নামাজের সময়',
+            hours: 'ঘণ্টা',
+            minutes: 'মিনিট',
+            seconds: 'সেকেন্ড',
+            detectingLocation: 'আপনার অবস্থান সনাক্ত করা হচ্ছে...',
+            unableToLoad: 'নামাজের সময় লোড করা যায়নি',
+            tryAgain: 'আবার চেষ্টা করুন',
+            dataProvidedBy: 'তথ্য প্রদানকারী',
+            changeLocation: 'পরিবর্তন করুন',
+            updateLocationBtn: 'হালনাগাদ করুন',
+            changeLocationTitle: 'অবস্থান পরিবর্তন করুন',
+            changeLocationDesc: 'সঠিক নামাজের সময় পেতে আপনার শহর এবং দেশের নাম লিখুন।',
+            cityLabel: 'শহরের নাম',
+            countryLabel: 'দেশ',
+            cityPlaceholder: 'উদাহরণ, ঢাকা',
+            countryPlaceholder: 'উদাহরণ, বাংলাদেশ',
+            cancel: 'বাতিল করুন',
+            updateLocation: 'অবস্থান হালনাগাদ করুন',
+            findNearbyMosque: 'কাছের মসজিদ খুঁজুন',
+            prayers: {
+                Fajr: 'ফজর',
+                Sunrise: 'সূর্যোদয়',
+                Dhuhr: 'যোহর',
+                Asr: 'আসর',
+                Maghrib: 'মাগরিব',
+                Isha: 'এশা'
+            }
         }
     },
 
@@ -222,7 +372,7 @@ const App = {
 
     // Update text direction for RTL languages
     updateDirection() {
-        if (this.currentLang === 'ar' || this.currentLang === 'ur') {
+        if (this.currentLang === 'ar' || this.currentLang === 'ur' || this.currentLang === 'fa') {
             document.body.setAttribute('dir', 'rtl');
         } else {
             document.body.setAttribute('dir', 'ltr');
