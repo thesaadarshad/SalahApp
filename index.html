@@ -57,10 +57,6 @@
                     <span class="header-icon">✨</span>
                     <span class="header-text">99 Names</span>
                 </a>
-                <a href="#" class="header-link" data-page="qibla">
-                    <span class="header-icon">🧭</span>
-                    <span class="header-text">Qibla</span>
-                </a>
             </nav>
         </div>
     </header>
@@ -95,12 +91,6 @@
                 <a href="#" class="nav-link" data-page="asma-ul-husna">
                     <span class="nav-icon">✨</span>
                     <span class="nav-text">99 Names of Allah</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="#" class="nav-link" data-page="qibla">
-                    <span class="nav-icon">🧭</span>
-                    <span class="nav-text">Qibla Direction</span>
                 </a>
             </li>
         </ul>
@@ -324,82 +314,6 @@
             <!-- Names Grid -->
             <div id="names-grid" class="names-grid" style="display: none;">
                 <!-- Names will be inserted here -->
-            </div>
-        </div>
-    </div>
-
-    <!-- Qibla Direction Page -->
-    <div class="container" id="qibla-page" style="display: none;">
-        <div class="qibla-container">
-            <div class="qibla-header">
-                <h2 class="page-title">Qibla Direction</h2>
-                <p class="page-subtitle">Find the direction to Makkah from your location</p>
-            </div>
-
-            <!-- Location Controls -->
-            <div class="qibla-location">
-                <div class="qibla-location-info">
-                    <span class="location-icon">📍</span>
-                    <span id="qibla-location-text">Detecting location...</span>
-                </div>
-                <button class="qibla-refresh-btn" id="qibla-refresh-btn" title="Update location">
-                    <span class="refresh-icon">⟲</span>
-                    Update Location
-                </button>
-            </div>
-
-            <!-- Compass Container -->
-            <div class="compass-container">
-                <div class="compass-loader" id="compass-loader">
-                    <div class="spinner"></div>
-                    <p>Calculating direction...</p>
-                </div>
-
-                <div class="compass-wrapper" id="compass-wrapper" style="display: none;">
-                    <!-- Compass Circle -->
-                    <div class="compass-circle">
-                        <!-- Cardinal Directions -->
-                        <div class="compass-direction north">N</div>
-                        <div class="compass-direction east">E</div>
-                        <div class="compass-direction south">S</div>
-                        <div class="compass-direction west">W</div>
-                        
-                        <!-- Qibla Arrow -->
-                        <div class="qibla-arrow" id="qibla-arrow">
-                            <div class="arrow-pointer">
-                                <div class="arrow-head"></div>
-                                <div class="kaaba-icon">🕋</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Direction Info -->
-                    <div class="qibla-info">
-                        <div class="qibla-degree">
-                            <span class="degree-value" id="qibla-degree">0</span>°
-                        </div>
-                        <p class="qibla-info-text">Direction from North</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Distance Info -->
-            <div class="distance-card" id="distance-card" style="display: none;">
-                <div class="distance-item">
-                    <span class="distance-label">Distance to Makkah</span>
-                    <span class="distance-value" id="distance-value">—</span>
-                </div>
-            </div>
-
-            <!-- Instructions -->
-            <div class="qibla-instructions">
-                <h4>How to use:</h4>
-                <ol>
-                    <li>Allow location access for accurate direction</li>
-                    <li>Hold your device flat (parallel to ground)</li>
-                    <li>Rotate until the arrow points forward</li>
-                    <li>You are now facing Qibla direction</li>
-                </ol>
             </div>
         </div>
     </div>

@@ -845,13 +845,11 @@ const App = {
         const prayerTimesPage = document.getElementById('prayer-times-page');
         const dateConverterPage = document.getElementById('date-converter-page');
         const asmaUlHusnaPage = document.getElementById('asma-ul-husna-page');
-        const qiblaPage = document.getElementById('qibla-page');
         
         // Hide all
         if (prayerTimesPage) prayerTimesPage.style.display = 'none';
         if (dateConverterPage) dateConverterPage.style.display = 'none';
         if (asmaUlHusnaPage) asmaUlHusnaPage.style.display = 'none';
-        if (qiblaPage) qiblaPage.style.display = 'none';
         
         // Show selected page
         if (page === 'prayer-times') {
@@ -865,11 +863,6 @@ const App = {
             if (asmaUlHusnaPage) {
                 asmaUlHusnaPage.style.display = '';
                 this.init99Names();
-            }
-        } else if (page === 'qibla') {
-            if (qiblaPage) {
-                qiblaPage.style.display = '';
-                this.initQibla();
             }
         }
     },
@@ -1077,149 +1070,6 @@ const App = {
             
             grid.appendChild(card);
         });
-    },
-
-    // Initialize Qibla Page
-    initQibla() {
-        const refreshBtn = document.getElementById('qibla-refresh-btn');
-        
-        // Set up refresh button
-        if (refreshBtn && !refreshBtn.hasListener) {
-            refreshBtn.addEventListener('click', () => {
-                this.fetchQiblaDirection();
-            });
-            refreshBtn.hasListener = true;
-        }
-        
-        // Fetch qibla direction
-        this.fetchQiblaDirection();
-    },
-
-    // Fetch Qibla Direction
-    async fetchQiblaDirection() {
-        const loader = document.getElementById('compass-loader');
-        const wrapper = document.getElementById('compass-wrapper');
-        const locationText = document.getElementById('qibla-location-text');
-        const distanceCard = document.getElementById('distance-card');
-        
-        // Show loader
-        if (loader) loader.style.display = 'flex';
-        if (wrapper) wrapper.style.display = 'none';
-        if (distanceCard) distanceCard.style.display = 'none';
-        
-        // Get user location
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(
-                async (position) => {
-                    const { latitude, longitude } = position.coords;
-                    
-                    try {
-                        const response = await fetch(
-                            `https://api.aladhan.com/v1/qibla/${latitude}/${longitude}`
-                        );
-                        const data = await response.json();
-                        
-                        if (data.code === 200) {
-                            // Get location name
-                            const locationName = await this.getLocationName(latitude, longitude);
-                            
-                            // Display qibla
-                            this.displayQibla(data.data, locationName);
-                            
-                            if (loader) loader.style.display = 'none';
-                            if (wrapper) wrapper.style.display = 'flex';
-                            if (distanceCard) distanceCard.style.display = 'block';
-                        }
-                    } catch (error) {
-                        console.error('Error fetching qibla:', error);
-                        if (loader) {
-                            loader.innerHTML = '<p style="color: var(--text-light);">Failed to calculate direction. Please try again.</p>';
-                        }
-                    }
-                },
-                (error) => {
-                    console.error('Geolocation error:', error);
-                    if (loader) {
-                        loader.innerHTML = '<p style="color: var(--text-light); text-align: center;">Location access denied. Please enable location to find Qibla direction.</p>';
-                    }
-                }
-            );
-        } else {
-            if (loader) {
-                loader.innerHTML = '<p style="color: var(--text-light);">Geolocation is not supported by your browser.</p>';
-            }
-        }
-    },
-
-    // Display Qibla Direction
-    displayQibla(qiblaData, locationName) {
-        const arrow = document.getElementById('qibla-arrow');
-        const degreeValue = document.getElementById('qibla-degree');
-        const locationText = document.getElementById('qibla-location-text');
-        const distanceValue = document.getElementById('distance-value');
-        
-        const direction = Math.round(qiblaData.direction);
-        
-        // Update arrow rotation
-        if (arrow) {
-            arrow.style.transform = `rotate(${direction}deg)`;
-        }
-        
-        // Update degree display
-        if (degreeValue) {
-            degreeValue.textContent = direction;
-        }
-        
-        // Update location text
-        if (locationText) {
-            locationText.textContent = locationName || 'Current Location';
-        }
-        
-        // Calculate and display distance (approximate)
-        // Makkah coordinates: 21.4225° N, 39.8262° E
-        const distance = this.calculateDistance(
-            qiblaData.latitude,
-            qiblaData.longitude,
-            21.4225,
-            39.8262
-        );
-        
-        if (distanceValue) {
-            distanceValue.textContent = distance;
-        }
-    },
-
-    // Calculate distance between two coordinates
-    calculateDistance(lat1, lon1, lat2, lon2) {
-        const R = 6371; // Earth's radius in km
-        const dLat = (lat2 - lat1) * Math.PI / 180;
-        const dLon = (lon2 - lon1) * Math.PI / 180;
-        const a = 
-            Math.sin(dLat/2) * Math.sin(dLat/2) +
-            Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
-            Math.sin(dLon/2) * Math.sin(dLon/2);
-        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-        const distance = R * c;
-        
-        return `${Math.round(distance).toLocaleString()} km`;
-    },
-
-    // Get location name from coordinates
-    async getLocationName(lat, lon) {
-        try {
-            const response = await fetch(
-                `https://api.aladhan.com/v1/timings/${Date.now()/1000}?latitude=${lat}&longitude=${lon}`
-            );
-            const data = await response.json();
-            
-            if (data.code === 200 && data.data.meta) {
-                const meta = data.data.meta;
-                return meta.timezone || 'Current Location';
-            }
-        } catch (error) {
-            console.error('Error getting location name:', error);
-        }
-        return 'Current Location';
     }
 };
 
