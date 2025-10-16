@@ -729,7 +729,8 @@ const App = {
     // Get user's location
     getUserLocation() {
         if (!navigator.geolocation) {
-            this.showError('Geolocation is not supported by your browser. Please enable location services or use a modern browser.');
+            console.log('Geolocation not supported, using fallback');
+            this.useFallbackLocation();
             return;
         }
 
@@ -739,21 +740,9 @@ const App = {
                 this.fetchPrayerTimes(latitude, longitude);
             },
             (error) => {
-                let message = 'Unable to retrieve your location. ';
-                switch (error.code) {
-                    case error.PERMISSION_DENIED:
-                        message += 'Please allow location access to see prayer times for your area.';
-                        break;
-                    case error.POSITION_UNAVAILABLE:
-                        message += 'Location information is unavailable.';
-                        break;
-                    case error.TIMEOUT:
-                        message += 'Location request timed out.';
-                        break;
-                    default:
-                        message += 'An unknown error occurred.';
-                }
-                this.showError(message);
+                console.log('Geolocation error:', error.code, '- Using fallback location');
+                // Instead of showing error, use fallback location
+                this.useFallbackLocation(error.code === error.PERMISSION_DENIED);
             },
             {
                 enableHighAccuracy: true,
@@ -761,6 +750,134 @@ const App = {
                 maximumAge: 300000 // 5 minutes cache
             }
         );
+    },
+
+    // Use fallback location when GPS is not available
+    async useFallbackLocation(permissionDenied = false) {
+        try {
+            // First, try IP-based geolocation
+            const ipLocation = await this.getLocationFromIP();
+            
+            if (ipLocation) {
+                console.log('Using IP-based location:', ipLocation);
+                
+                // Show info message to user
+                this.showLocationInfo(permissionDenied ? 
+                    'Location access denied. Showing prayer times based on your approximate location.' :
+                    'Showing prayer times based on your approximate location.', 
+                    ipLocation.city
+                );
+                
+                // Fetch prayer times for IP location
+                if (ipLocation.latitude && ipLocation.longitude) {
+                    this.fetchPrayerTimes(ipLocation.latitude, ipLocation.longitude);
+                } else if (ipLocation.city && ipLocation.country) {
+                    this.fetchPrayerTimesByCity(ipLocation.city, ipLocation.country);
+                }
+                return;
+            }
+        } catch (error) {
+            console.log('IP geolocation failed:', error);
+        }
+
+        // If IP geolocation fails, use timezone-based default
+        const timezoneLocation = this.getLocationFromTimezone();
+        console.log('Using timezone-based location:', timezoneLocation);
+        
+        this.showLocationInfo(
+            'Could not detect your location. Showing prayer times for ' + timezoneLocation.city + '.',
+            timezoneLocation.city
+        );
+        
+        this.fetchPrayerTimesByCity(timezoneLocation.city, timezoneLocation.country);
+    },
+
+    // Get approximate location from IP address
+    async getLocationFromIP() {
+        try {
+            // Using ipapi.co - free tier allows 1000 requests/day
+            const response = await fetch('https://ipapi.co/json/');
+            
+            if (!response.ok) throw new Error('IP API failed');
+            
+            const data = await response.json();
+            
+            if (data.city && data.country_name) {
+                return {
+                    city: data.city,
+                    country: data.country_name,
+                    latitude: data.latitude,
+                    longitude: data.longitude
+                };
+            }
+        } catch (error) {
+            console.error('Error fetching IP location:', error);
+        }
+        
+        return null;
+    },
+
+    // Get default location based on browser timezone
+    getLocationFromTimezone() {
+        const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        
+        // Map common timezones to cities
+        const timezoneMap = {
+            // Americas
+            'America/New_York': { city: 'New York', country: 'USA' },
+            'America/Chicago': { city: 'Chicago', country: 'USA' },
+            'America/Los_Angeles': { city: 'Los Angeles', country: 'USA' },
+            'America/Toronto': { city: 'Toronto', country: 'Canada' },
+            'America/Mexico_City': { city: 'Mexico City', country: 'Mexico' },
+            'America/Sao_Paulo': { city: 'São Paulo', country: 'Brazil' },
+            
+            // Europe
+            'Europe/London': { city: 'London', country: 'UK' },
+            'Europe/Paris': { city: 'Paris', country: 'France' },
+            'Europe/Berlin': { city: 'Berlin', country: 'Germany' },
+            'Europe/Istanbul': { city: 'Istanbul', country: 'Turkey' },
+            'Europe/Moscow': { city: 'Moscow', country: 'Russia' },
+            
+            // Asia
+            'Asia/Dubai': { city: 'Dubai', country: 'UAE' },
+            'Asia/Karachi': { city: 'Karachi', country: 'Pakistan' },
+            'Asia/Kolkata': { city: 'Mumbai', country: 'India' },
+            'Asia/Dhaka': { city: 'Dhaka', country: 'Bangladesh' },
+            'Asia/Jakarta': { city: 'Jakarta', country: 'Indonesia' },
+            'Asia/Singapore': { city: 'Singapore', country: 'Singapore' },
+            'Asia/Tokyo': { city: 'Tokyo', country: 'Japan' },
+            'Asia/Shanghai': { city: 'Shanghai', country: 'China' },
+            'Asia/Riyadh': { city: 'Riyadh', country: 'Saudi Arabia' },
+            'Asia/Tehran': { city: 'Tehran', country: 'Iran' },
+            
+            // Africa
+            'Africa/Cairo': { city: 'Cairo', country: 'Egypt' },
+            'Africa/Lagos': { city: 'Lagos', country: 'Nigeria' },
+            'Africa/Johannesburg': { city: 'Johannesburg', country: 'South Africa' },
+            
+            // Oceania
+            'Australia/Sydney': { city: 'Sydney', country: 'Australia' },
+            'Pacific/Auckland': { city: 'Auckland', country: 'New Zealand' }
+        };
+        
+        // Return mapped location or default to Makkah
+        return timezoneMap[timezone] || { city: 'Makkah', country: 'Saudi Arabia' };
+    },
+
+    // Show info message about location
+    showLocationInfo(message, cityName) {
+        // We'll show this as a subtle notification at the top
+        // For now, just log it - you can enhance this with a toast notification
+        console.log('ℹ️', message);
+        
+        // Update the location display to show it's approximate
+        setTimeout(() => {
+            const locationDisplay = document.querySelector('#location-name');
+            if (locationDisplay && cityName) {
+                locationDisplay.textContent = `📍 ${cityName} (approximate)`;
+                locationDisplay.style.opacity = '0.8';
+            }
+        }, 100);
     },
 
     // Fetch prayer times from API
