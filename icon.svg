@@ -1,0 +1,31 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="512" height="512" fill="#667eea" rx="100"/>
+  
+  <!-- Mosque Icon -->
+  <g fill="#ffffff">
+    <!-- Main dome -->
+    <ellipse cx="256" cy="220" rx="100" ry="80"/>
+    
+    <!-- Left minaret -->
+    <rect x="120" y="240" width="30" height="150" rx="5"/>
+    <ellipse cx="135" cy="230" rx="20" ry="30"/>
+    <circle cx="135" cy="200" r="8"/>
+    
+    <!-- Right minaret -->
+    <rect x="362" y="240" width="30" height="150" rx="5"/>
+    <ellipse cx="377" cy="230" rx="20" ry="30"/>
+    <circle cx="377" cy="200" r="8"/>
+    
+    <!-- Main building -->
+    <rect x="180" y="280" width="152" height="120" rx="5"/>
+    
+    <!-- Door arch -->
+    <path d="M 220 400 Q 220 340 256 340 Q 292 340 292 400 Z" fill="#667eea"/>
+    
+    <!-- Crescent on top -->
+    <path d="M 256 140 Q 240 150 240 170 Q 240 185 256 200 Q 250 195 245 180 Q 245 160 256 150 Z" fill="#ffd700"/>
+    <circle cx="265" cy="160" r="5" fill="#ffd700"/>
+  </g>
+</svg>
+

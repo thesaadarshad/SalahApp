@@ -1234,3 +1234,86 @@ if (document.readyState === 'loading') {
     App.init();
 }
 
+// Register Service Worker for PWA
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js')
+            .then((registration) => {
+                console.log('✅ Service Worker registered successfully:', registration.scope);
+                
+                // Check for updates periodically
+                setInterval(() => {
+                    registration.update();
+                }, 60 * 60 * 1000); // Check every hour
+                
+                // Listen for updates
+                registration.addEventListener('updatefound', () => {
+                    const newWorker = registration.installing;
+                    
+                    newWorker.addEventListener('statechange', () => {
+                        if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                            // New service worker available
+                            console.log('🔄 New version available! Refresh to update.');
+                            
+                            // Optionally show a notification to user
+                            if (confirm('A new version is available! Refresh to update?')) {
+                                newWorker.postMessage({ type: 'SKIP_WAITING' });
+                                window.location.reload();
+                            }
+                        }
+                    });
+                });
+            })
+            .catch((error) => {
+                console.log('❌ Service Worker registration failed:', error);
+            });
+        
+        // Handle service worker controller change
+        navigator.serviceWorker.addEventListener('controllerchange', () => {
+            console.log('🔄 Service Worker controller changed');
+        });
+    });
+}
+
+// PWA Install Prompt
+let deferredPrompt;
+
+window.addEventListener('beforeinstallprompt', (e) => {
+    // Prevent the mini-infobar from appearing on mobile
+    e.preventDefault();
+    // Stash the event so it can be triggered later
+    deferredPrompt = e;
+    
+    console.log('💾 PWA install prompt available');
+    
+    // Optionally, show your own install button
+    // You can add a button in the UI and trigger installation like this:
+    // deferredPrompt.prompt();
+    // deferredPrompt.userChoice.then((choiceResult) => {
+    //     if (choiceResult.outcome === 'accepted') {
+    //         console.log('User accepted the install prompt');
+    //     }
+    //     deferredPrompt = null;
+    // });
+});
+
+window.addEventListener('appinstalled', () => {
+    console.log('✅ PWA installed successfully');
+    deferredPrompt = null;
+});
+
+// Handle online/offline status
+window.addEventListener('online', () => {
+    console.log('🌐 Back online');
+    // Optionally refresh prayer times
+    if (App.locationMode === 'manual' && App.savedLocation) {
+        App.fetchPrayerTimesByCity(App.savedLocation.city, App.savedLocation.country);
+    } else {
+        App.getUserLocation();
+    }
+});
+
+window.addEventListener('offline', () => {
+    console.log('📴 Gone offline - using cached data');
+});
+

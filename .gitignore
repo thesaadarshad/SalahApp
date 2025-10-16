@@ -37,3 +37,6 @@ yarn-error.log*
 .env.test.local
 .env.production.local
 
+# Generated icons (uncomment if you want to ignore them)
+# icon-*.png
+
