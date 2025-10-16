@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prayer Times</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Theme Toggle Button -->
+    <button id="theme-toggle" class="control-btn theme-toggle" aria-label="Toggle theme" title="Toggle theme">
+        <span class="control-icon">🌙</span>
+    </button>
+
+    <!-- Language Toggle Button -->
+    <button id="language-toggle" class="control-btn language-toggle" aria-label="Change language" title="Change language">
+        <span class="control-icon">🌐</span>
+    </button>
+
+    <!-- Language Dropdown Menu -->
+    <div class="language-dropdown" id="language-dropdown">
+        <button class="lang-option" data-lang="en">
+            <span class="lang-flag">🇬🇧</span>
+            <span class="lang-name">English</span>
+        </button>
+        <button class="lang-option" data-lang="ur">
+            <span class="lang-flag">🇵🇰</span>
+            <span class="lang-name">اردو</span>
+        </button>
+        <button class="lang-option" data-lang="ar">
+            <span class="lang-flag">🇸🇦</span>
+            <span class="lang-name">عربي</span>
+        </button>
+        <button class="lang-option" data-lang="hi">
+            <span class="lang-flag">🇮🇳</span>
+            <span class="lang-name">हिन्दी</span>
+        </button>
+    </div>
+
+    <!-- Desktop Header Navigation -->
+    <header class="header-nav">
+        <div class="header-nav-content">
+            <h1 class="header-logo">Prayer Times</h1>
+            <nav class="header-menu">
+                <a href="#" class="header-link active" data-page="prayer-times">
+                    <span class="header-icon">🕌</span>
+                    <span class="header-text">Prayer Times</span>
+                </a>
+                <a href="#" class="header-link" data-page="date-converter">
+                    <span class="header-icon">📅</span>
+                    <span class="header-text">Hijri Converter</span>
+                </a>
+                <a href="#" class="header-link" data-page="asma-ul-husna">
+                    <span class="header-icon">✨</span>
+                    <span class="header-text">99 Names</span>
+                </a>
+                <a href="#" class="header-link" data-page="qibla">
+                    <span class="header-icon">🧭</span>
+                    <span class="header-text">Qibla</span>
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Mobile Navigation Toggle -->
+    <button class="nav-toggle mobile-only" id="nav-toggle" aria-label="Toggle navigation menu" title="Open menu">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+    </button>
+
+    <!-- Mobile Navigation Drawer -->
+    <nav class="nav-drawer mobile-only" id="nav-drawer">
+        <div class="nav-header">
+            <h2 class="nav-title">Prayer Times</h2>
+            <button class="nav-close" id="nav-close" aria-label="Close menu">✕</button>
+        </div>
+        <ul class="nav-menu">
+            <li class="nav-item active">
+                <a href="#" class="nav-link" data-page="prayer-times">
+                    <span class="nav-icon">🕌</span>
+                    <span class="nav-text">Prayer Times</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link" data-page="date-converter">
+                    <span class="nav-icon">📅</span>
+                    <span class="nav-text">Hijri Converter</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link" data-page="asma-ul-husna">
+                    <span class="nav-icon">✨</span>
+                    <span class="nav-text">99 Names of Allah</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link" data-page="qibla">
+                    <span class="nav-icon">🧭</span>
+                    <span class="nav-text">Qibla Direction</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Navigation Overlay -->
+    <div class="nav-overlay mobile-only" id="nav-overlay"></div>
+
+    <div class="container" id="prayer-times-page">
+        <!-- Loading State -->
+        <div id="loading" class="loading">
+            <div class="spinner"></div>
+            <p>Detecting your location...</p>
+        </div>
+
+        <!-- Error State -->
+        <div id="error" class="error hidden">
+            <div class="error-icon">⚠️</div>
+            <h2>Unable to load prayer times</h2>
+            <p id="error-message"></p>
+            <button onclick="location.reload()" class="retry-btn">Try Again</button>
+        </div>
+
+        <!-- Location Modal -->
+        <div id="location-modal" class="location-modal hidden">
+            <div class="location-modal-content">
+                <h3>Change Location</h3>
+                <p>Enter your city name and country to get accurate prayer times.</p>
+                <div class="location-input-group">
+                    <label for="city-input">City Name</label>
+                    <input type="text" id="city-input" class="location-input" placeholder="e.g., Karachi">
+                </div>
+                <div class="location-input-group">
+                    <label for="country-input">Country</label>
+                    <input type="text" id="country-input" class="location-input" placeholder="e.g., Pakistan">
+                </div>
+                <div class="location-modal-actions">
+                    <button class="modal-btn modal-btn-cancel" id="cancel-location-btn">Cancel</button>
+                    <button class="modal-btn modal-btn-submit" id="submit-location-btn">Update Location</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div id="main-content" class="main-content hidden">
+            <!-- Date Header -->
+            <div class="date-header">
+                <div class="date-display">
+                    <span id="gregorian-date-header"></span>
+                    <span class="date-separator-header">•</span>
+                    <span id="hijri-date-header"></span>
+                </div>
+                <div class="calculation-method-toggle">
+                    <button class="method-btn active" data-method="2" title="Sunni (ISNA)" aria-label="Sunni calculation method">Sunni</button>
+                    <button class="method-btn" data-method="0" title="Shia Jafari" aria-label="Shia Jafari calculation method">Jafari</button>
+                </div>
+            </div>
+
+            <!-- Next Prayer Countdown -->
+            <div class="next-prayer-section">
+                <div class="location">
+                    <div class="location-display">
+                        <span id="location-name">Loading...</span>
+                    </div>
+                    <div class="location-actions">
+                        <button class="location-action-btn change-location-btn" id="change-location-btn" title="Change location manually">
+                            Change
+                        </button>
+                        <button class="location-action-btn update-location-btn" id="update-location-btn" title="Use my current location">
+                            Update
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="countdown-wrapper">
+                    <p class="next-prayer-label">Time until</p>
+                    <div class="prayer-name-wrapper">
+                        <span class="prayer-ornament left">❲</span>
+                        <h1 class="next-prayer-name" id="next-prayer-name">—</h1>
+                        <span class="prayer-ornament right">❳</span>
+                    </div>
+                    <div class="countdown" id="countdown">
+                        <div class="time-unit">
+                            <span class="time-value" id="hours">00</span>
+                            <span class="time-label">hours</span>
+                        </div>
+                        <span class="time-separator">:</span>
+                        <div class="time-unit">
+                            <span class="time-value" id="minutes">00</span>
+                            <span class="time-label">minutes</span>
+                        </div>
+                        <span class="time-separator">:</span>
+                        <div class="time-unit">
+                            <span class="time-value" id="seconds">00</span>
+                            <span class="time-label">seconds</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Divider -->
+            <div class="divider"></div>
+
+            <!-- All Prayer Times -->
+            <div class="prayer-times-section">
+                <h2 class="section-title">Today's Prayer Times</h2>
+                
+                <div class="prayer-times-grid" id="prayer-times-grid">
+                    <!-- Prayer times will be inserted here -->
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="footer">
+                <div class="footer-links">
+                    <a href="#" id="nearby-mosque-link" target="_blank" rel="noopener noreferrer" class="mosque-link">
+                        🕌 Find Nearby Mosque
+                    </a>
+                </div>
+                <p class="footer-credit">Data provided by <a href="https://aladhan.com" target="_blank">AlAdhan API</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Date Converter Page -->
+    <div class="container" id="date-converter-page" style="display: none;">
+            <div class="date-converter-container">
+                <h2 class="page-title">Islamic Date Converter</h2>
+                <p class="page-subtitle">Convert between Gregorian and Hijri calendars</p>
+
+                <!-- Conversion Direction Toggle -->
+                <div class="conversion-toggle">
+                    <button class="conversion-btn active" data-direction="gregorian-to-hijri">
+                        <span class="conversion-label">Gregorian → Hijri</span>
+                    </button>
+                    <button class="conversion-btn" data-direction="hijri-to-gregorian">
+                        <span class="conversion-label">Hijri → Gregorian</span>
+                    </button>
+                </div>
+
+                <!-- Gregorian to Hijri Converter -->
+                <div id="gregorian-to-hijri" class="converter-section">
+                    <div class="date-input-group">
+                        <label class="input-label">Enter Gregorian Date</label>
+                        <input type="date" id="gregorian-date-input" class="date-input" />
+                    </div>
+                    
+                    <button class="convert-btn" id="convert-to-hijri-btn">
+                        <span>Convert to Hijri</span>
+                        <span class="btn-arrow">→</span>
+                    </button>
+
+                    <div id="hijri-result" class="result-card hidden">
+                        <div class="result-icon">🌙</div>
+                        <div class="result-content">
+                            <p class="result-label">Hijri Date</p>
+                            <h3 class="result-date" id="hijri-date-display"></h3>
+                            <p class="result-details" id="hijri-date-details"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hijri to Gregorian Converter -->
+                <div id="hijri-to-gregorian" class="converter-section hidden">
+                    <div class="date-input-group">
+                        <label class="input-label">Enter Hijri Date</label>
+                        <div class="hijri-inputs">
+                            <input type="number" id="hijri-day" class="hijri-input" placeholder="Day" min="1" max="30" />
+                            <input type="number" id="hijri-month" class="hijri-input" placeholder="Month" min="1" max="12" />
+                            <input type="number" id="hijri-year" class="hijri-input" placeholder="Year" min="1" max="9999" />
+                        </div>
+                    </div>
+                    
+                    <button class="convert-btn" id="convert-to-gregorian-btn">
+                        <span>Convert to Gregorian</span>
+                        <span class="btn-arrow">→</span>
+                    </button>
+
+                    <div id="gregorian-result" class="result-card hidden">
+                        <div class="result-icon">📅</div>
+                        <div class="result-content">
+                            <p class="result-label">Gregorian Date</p>
+                            <h3 class="result-date" id="gregorian-date-display"></h3>
+                            <p class="result-details" id="gregorian-date-details"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Info -->
+                <div class="today-info">
+                    <h4 class="info-title">Today's Date</h4>
+                    <div class="info-dates">
+                        <div class="info-date">
+                            <span class="info-icon">📅</span>
+                            <span id="today-gregorian">—</span>
+                        </div>
+                        <div class="info-date">
+                            <span class="info-icon">🌙</span>
+                            <span id="today-hijri">—</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 99 Names Page -->
+    <div class="container" id="asma-ul-husna-page" style="display: none;">
+        <div class="names-container">
+            <div class="names-header">
+                <h2 class="page-title">Asma ul Husna</h2>
+                <p class="page-subtitle">The 99 Beautiful Names of Allah</p>
+            </div>
+
+            <!-- Loading State -->
+            <div id="names-loading" class="names-loading">
+                <div class="spinner"></div>
+                <p>Loading names...</p>
+            </div>
+
+            <!-- Names Grid -->
+            <div id="names-grid" class="names-grid" style="display: none;">
+                <!-- Names will be inserted here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Qibla Direction Page -->
+    <div class="container" id="qibla-page" style="display: none;">
+        <div class="qibla-container">
+            <div class="qibla-header">
+                <h2 class="page-title">Qibla Direction</h2>
+                <p class="page-subtitle">Find the direction to Makkah from your location</p>
+            </div>
+
+            <!-- Location Controls -->
+            <div class="qibla-location">
+                <div class="qibla-location-info">
+                    <span class="location-icon">📍</span>
+                    <span id="qibla-location-text">Detecting location...</span>
+                </div>
+                <button class="qibla-refresh-btn" id="qibla-refresh-btn" title="Update location">
+                    <span class="refresh-icon">⟲</span>
+                    Update Location
+                </button>
+            </div>
+
+            <!-- Compass Container -->
+            <div class="compass-container">
+                <div class="compass-loader" id="compass-loader">
+                    <div class="spinner"></div>
+                    <p>Calculating direction...</p>
+                </div>
+
+                <div class="compass-wrapper" id="compass-wrapper" style="display: none;">
+                    <!-- Compass Circle -->
+                    <div class="compass-circle">
+                        <!-- Cardinal Directions -->
+                        <div class="compass-direction north">N</div>
+                        <div class="compass-direction east">E</div>
+                        <div class="compass-direction south">S</div>
+                        <div class="compass-direction west">W</div>
+                        
+                        <!-- Qibla Arrow -->
+                        <div class="qibla-arrow" id="qibla-arrow">
+                            <div class="arrow-pointer">
+                                <div class="arrow-head"></div>
+                                <div class="kaaba-icon">🕋</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Direction Info -->
+                    <div class="qibla-info">
+                        <div class="qibla-degree">
+                            <span class="degree-value" id="qibla-degree">0</span>°
+                        </div>
+                        <p class="qibla-info-text">Direction from North</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Distance Info -->
+            <div class="distance-card" id="distance-card" style="display: none;">
+                <div class="distance-item">
+                    <span class="distance-label">Distance to Makkah</span>
+                    <span class="distance-value" id="distance-value">—</span>
+                </div>
+            </div>
+
+            <!-- Instructions -->
+            <div class="qibla-instructions">
+                <h4>How to use:</h4>
+                <ol>
+                    <li>Allow location access for accurate direction</li>
+                    <li>Hold your device flat (parallel to ground)</li>
+                    <li>Rotate until the arrow points forward</li>
+                    <li>You are now facing Qibla direction</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js?version=1.0.0"></script>
+</body>
+</html>
+
