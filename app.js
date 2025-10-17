@@ -1411,11 +1411,25 @@ const App = {
         // Update nearby mosque link with coordinates
         this.updateMosqueLink(meta.latitude, meta.longitude);
 
-        // Update dates in header
+        // Update dates in header (old format - kept for compatibility)
         const gregorianDate = date.readable;
         const hijriDate = `${date.hijri.day} ${date.hijri.month.en} ${date.hijri.year} AH`;
-        document.getElementById('gregorian-date-header').textContent = gregorianDate;
-        document.getElementById('hijri-date-header').textContent = hijriDate;
+        if (document.getElementById('gregorian-date-header')) {
+            document.getElementById('gregorian-date-header').textContent = gregorianDate;
+        }
+        if (document.getElementById('hijri-date-header')) {
+            document.getElementById('hijri-date-header').textContent = hijriDate;
+        }
+        
+        // Update top bar full dates
+        if (document.getElementById('gregorian-date-full')) {
+            const gregorianFull = `${date.gregorian.weekday.en}, ${date.gregorian.month.en} ${date.gregorian.day}, ${date.gregorian.year}`;
+            document.getElementById('gregorian-date-full').textContent = gregorianFull;
+        }
+        if (document.getElementById('hijri-date-full')) {
+            const hijriFull = `${date.hijri.weekday.ar} ${date.hijri.day} ${date.hijri.month.ar} ${date.hijri.year} ${date.hijri.designation.abbreviated}`;
+            document.getElementById('hijri-date-full').textContent = hijriFull;
+        }
 
         // Create prayer time cards
         const gridContainer = document.getElementById('prayer-times-grid');
@@ -1552,6 +1566,13 @@ const App = {
             // Update display with translated prayer name
             const t = this.translations[this.currentLang];
             const translatedPrayerName = t.prayers[this.nextPrayer.name] || this.nextPrayer.name;
+            
+            // Update label to "The prayer of {NAME} is in"
+            const labelElement = document.querySelector('.next-prayer-label');
+            if (labelElement) {
+                labelElement.textContent = `The prayer of ${translatedPrayerName} is in`;
+            }
+            
             document.getElementById('next-prayer-name').textContent = translatedPrayerName;
             document.getElementById('hours').textContent = String(hours).padStart(2, '0');
             document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');

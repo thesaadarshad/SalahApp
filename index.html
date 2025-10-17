@@ -226,28 +226,29 @@
         <div id="main-content" class="main-content hidden">
             <!-- Next Prayer Countdown -->
             <div class="next-prayer-section">
-                <!-- Compact Header -->
-                <div class="compact-header">
-                    <!-- Time + Date -->
-                    <div class="time-date-row">
-                        <span id="current-time" class="time-small">16:00</span>
-                        <span class="date-small">
-                            <span id="gregorian-date-header"></span>
-                            <span class="date-separator-header">•</span>
-                            <span id="hijri-date-header"></span>
-                        </span>
+                <!-- Top Bar: Date - Time - Hijri Date -->
+                <div class="top-bar">
+                    <div class="top-bar-left">
+                        <span id="gregorian-date-full"></span>
                     </div>
+                    <div class="top-bar-center">
+                        <span id="current-time">19:12</span>
+                    </div>
+                    <div class="top-bar-right">
+                        <span id="hijri-date-full"></span>
+                    </div>
+                </div>
+                
+                <!-- Center Info -->
+                <div class="center-info">
+                    <p class="prayer-times-label" data-i18n="prayerTimesLabel">Prayer times</p>
+                    <h1 class="location-title" id="location-name">Islamic Centre Drogheda</h1>
+                    <p class="location-subtitle" id="location-address">34 Windmill Road, Drogheda, Ireland</p>
                     
-                    <!-- Prayer Times Label -->
-                    <h2 class="prayer-times-heading" data-i18n="prayerTimesLabel">Prayer times</h2>
-                    
-                    <!-- Location with Actions -->
-                    <div class="location-row">
-                        <span class="location-name" id="location-name">Loading...</span>
-                        <span class="location-actions-inline">
-                            (<button class="location-link-btn change-location-btn" id="change-location-btn">Change</button> - 
-                            <button class="location-link-btn update-location-btn" id="update-location-btn">Update</button>)
-                        </span>
+                    <!-- Hidden Action Buttons -->
+                    <div class="location-actions-hidden">
+                        <button class="location-link-btn change-location-btn" id="change-location-btn">Change</button>
+                        <button class="location-link-btn update-location-btn" id="update-location-btn">Update</button>
                     </div>
                 </div>
                 
