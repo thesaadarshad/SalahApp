@@ -620,13 +620,12 @@ const App = {
             this.countdownInterval = null;
         }
         
-        // Store coordinates before clearing data
+        // Store location data before clearing
         const latitude = this.prayerData?.meta?.latitude;
         const longitude = this.prayerData?.meta?.longitude;
         
-        // Clear old prayer data to force fresh fetch
-        this.prayerData = null;
-        this.nextPrayer = null;
+        // DON'T clear prayerData - just update the method and refetch
+        // This preserves location info until new data arrives
         
         // Reload prayer times with new method
         this.showLoading();
@@ -1036,10 +1035,22 @@ const App = {
         const { timings, date, meta } = this.prayerData;
         const t = this.translations[this.currentLang];
         
-        // Update location
-        let locationName = meta.timezone || 'Your Location';
+        // Update location - preserve user-friendly names
+        let locationName;
         if (this.locationMode === 'manual' && this.savedLocation) {
+            // Manual location
             locationName = `${this.savedLocation.city}, ${this.savedLocation.country}`;
+        } else {
+            // Auto location - try to get a friendly name from current display or meta
+            const currentDisplay = document.getElementById('location-name')?.textContent;
+            // If we already have a good display name (not a timezone path), keep it
+            if (currentDisplay && !currentDisplay.includes('/') && currentDisplay !== 'Loading...') {
+                locationName = currentDisplay;
+            } else {
+                // Otherwise extract from timezone or use a generic name
+                const timezoneParts = meta.timezone?.split('/') || [];
+                locationName = timezoneParts[timezoneParts.length - 1]?.replace(/_/g, ' ') || meta.timezone || 'Your Location';
+            }
         }
         document.getElementById('location-name').textContent = locationName;
 
