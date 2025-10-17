@@ -552,7 +552,6 @@ const App = {
         this.school = parseInt(localStorage.getItem('school')) || 1; // Default: Hanafi
         this.showOptionalPrayers = localStorage.getItem('showOptionalPrayers') === 'true';
         this.initNavigation();
-        this.initTheme();
         this.initLanguage();
         this.initSettings();
         this.initLocationModal();
@@ -802,32 +801,6 @@ const App = {
         });
     },
 
-    // Initialize theme
-    initTheme() {
-        const themeToggle = document.getElementById('theme-toggle');
-        
-        // Check for saved theme preference or default to light mode
-        const savedTheme = localStorage.getItem('theme') || 'light';
-        
-        // Apply saved theme
-        if (savedTheme === 'dark') {
-            document.body.classList.add('dark-mode');
-        }
-        
-        // Add click event listener to theme toggle button
-        themeToggle.addEventListener('click', () => {
-            this.toggleTheme();
-        });
-    },
-
-    // Toggle theme
-    toggleTheme() {
-        document.body.classList.toggle('dark-mode');
-        
-        // Save theme preference
-        const theme = document.body.classList.contains('dark-mode') ? 'dark' : 'light';
-        localStorage.setItem('theme', theme);
-    },
 
     // Initialize settings modal
     initSettings() {
