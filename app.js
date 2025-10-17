@@ -311,7 +311,8 @@ const App = {
             this.locationMode = 'manual';
             this.fetchPrayerTimesByCity(this.savedLocation.city, this.savedLocation.country);
         } else {
-            this.getUserLocation();
+            // Use automatic fallback location (IP/timezone) - don't prompt for GPS
+            this.useFallbackLocation();
         }
     },
 
@@ -699,9 +700,9 @@ const App = {
         this.locationMode = 'auto';
         localStorage.removeItem('savedLocation');
         
-        // Show loading and get current location
+        // Show loading and get precise GPS location
         this.showLoading();
-        this.getUserLocation();
+        this.getUserLocation(true); // Pass true to indicate user-initiated request
     },
 
     // Show loading state
@@ -727,7 +728,7 @@ const App = {
     },
 
     // Get user's location
-    getUserLocation() {
+    getUserLocation(userInitiated = false) {
         if (!navigator.geolocation) {
             console.log('Geolocation not supported, using fallback');
             this.useFallbackLocation();
@@ -737,11 +738,26 @@ const App = {
         navigator.geolocation.getCurrentPosition(
             (position) => {
                 const { latitude, longitude } = position.coords;
+                this.locationMode = 'auto';
                 this.fetchPrayerTimes(latitude, longitude);
+                
+                // Update location display to show it's precise
+                setTimeout(() => {
+                    const locationDisplay = document.querySelector('#location-name');
+                    if (locationDisplay) {
+                        locationDisplay.style.opacity = '1';
+                    }
+                }, 100);
             },
             (error) => {
                 console.log('Geolocation error:', error.code, '- Using fallback location');
-                // Instead of showing error, use fallback location
+                
+                // If user specifically clicked "Update", show a helpful message
+                if (userInitiated && error.code === error.PERMISSION_DENIED) {
+                    alert('Location access was denied. To use your precise location, please enable location permissions in your browser settings.\n\nWe\'ll continue showing prayer times based on your approximate location.');
+                }
+                
+                // Use fallback location
                 this.useFallbackLocation(error.code === error.PERMISSION_DENIED);
             },
             {
@@ -759,12 +775,11 @@ const App = {
             const ipLocation = await this.getLocationFromIP();
             
             if (ipLocation) {
-                console.log('Using IP-based location:', ipLocation);
+                console.log('✅ Using IP-based location:', ipLocation);
                 
                 // Show info message to user
-                this.showLocationInfo(permissionDenied ? 
-                    'Location access denied. Showing prayer times based on your approximate location.' :
-                    'Showing prayer times based on your approximate location.', 
+                this.showLocationInfo(
+                    'Showing approximate location. Click "Update" for precise times.', 
                     ipLocation.city
                 );
                 
@@ -782,10 +797,10 @@ const App = {
 
         // If IP geolocation fails, use timezone-based default
         const timezoneLocation = this.getLocationFromTimezone();
-        console.log('Using timezone-based location:', timezoneLocation);
+        console.log('✅ Using timezone-based location:', timezoneLocation);
         
         this.showLocationInfo(
-            'Could not detect your location. Showing prayer times for ' + timezoneLocation.city + '.',
+            'Showing timezone-based location. Click "Update" for precise times.',
             timezoneLocation.city
         );
         
