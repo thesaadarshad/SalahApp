@@ -620,13 +620,21 @@ const App = {
             this.countdownInterval = null;
         }
         
+        // Store coordinates before clearing data
+        const latitude = this.prayerData?.meta?.latitude;
+        const longitude = this.prayerData?.meta?.longitude;
+        
+        // Clear old prayer data to force fresh fetch
+        this.prayerData = null;
+        this.nextPrayer = null;
+        
         // Reload prayer times with new method
         this.showLoading();
         if (this.locationMode === 'manual' && this.savedLocation) {
             this.fetchPrayerTimesByCity(this.savedLocation.city, this.savedLocation.country);
-        } else if (this.prayerData && this.prayerData.meta) {
-            // Use last known coordinates
-            this.fetchPrayerTimes(this.prayerData.meta.latitude, this.prayerData.meta.longitude);
+        } else if (latitude && longitude) {
+            // Use stored coordinates
+            this.fetchPrayerTimes(latitude, longitude);
         }
     },
 
@@ -970,7 +978,8 @@ const App = {
             const timestamp = Math.floor(Date.now() / 1000);
             const url = `https://api.aladhan.com/v1/timings/${timestamp}?latitude=${latitude}&longitude=${longitude}&method=${this.calculationMethod}`;
 
-            const response = await fetch(url);
+            // Force fresh fetch (bypass cache)
+            const response = await fetch(url, { cache: 'no-store' });
             
             if (!response.ok) {
                 throw new Error('Failed to fetch prayer times from server');
@@ -998,7 +1007,8 @@ const App = {
         try {
             const url = `https://api.aladhan.com/v1/timingsByCity?city=${encodeURIComponent(city)}&country=${encodeURIComponent(country)}&method=${this.calculationMethod}`;
 
-            const response = await fetch(url);
+            // Force fresh fetch (bypass cache)
+            const response = await fetch(url, { cache: 'no-store' });
             
             if (!response.ok) {
                 throw new Error('Failed to fetch prayer times from server');
