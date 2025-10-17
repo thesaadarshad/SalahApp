@@ -1567,12 +1567,6 @@ const App = {
             const t = this.translations[this.currentLang];
             const translatedPrayerName = t.prayers[this.nextPrayer.name] || this.nextPrayer.name;
             
-            // Update label to "The prayer of {NAME} is in"
-            const labelElement = document.querySelector('.next-prayer-label');
-            if (labelElement) {
-                labelElement.textContent = `The prayer of ${translatedPrayerName} is in`;
-            }
-            
             document.getElementById('next-prayer-name').textContent = translatedPrayerName;
             document.getElementById('hours').textContent = String(hours).padStart(2, '0');
             document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');

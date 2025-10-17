@@ -102,10 +102,7 @@ body {
     font-size: var(--text-xl);
     font-weight: 700;
     margin: 0;
-    background: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: #FFFFFF;
 }
 
 .header-menu {
@@ -365,30 +362,25 @@ body {
 }
 
 /* Language Toggle */
-.language-toggle::after {
-    content: '🌐';
-    font-size: 1.1rem;
-    opacity: 0.75;
-    filter: grayscale(1) opacity(0.75);
-}
-
 .language-toggle {
     top: 12px;
     right: var(--space-lg);
+    width: auto;
+    height: auto;
+    padding: var(--space-xs) var(--space-md);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 6px;
 }
 
+.control-text {
+    font-size: var(--text-sm);
+    color: #FFFFFF;
+    font-weight: 500;
+}
+
+/* Settings toggle - removed */
 .settings-toggle {
-    top: 12px;
-    right: calc(var(--space-lg) + 56px);
-}
-
-/* Settings icon */
-.settings-toggle::after {
-    content: '⚙';
-    font-size: 1.4rem;
-    color: var(--text-primary);
-    opacity: 0.75;
-    font-weight: 400;
+    display: none;
 }
 
 /* Language Dropdown */
@@ -1040,26 +1032,12 @@ body[dir="rtl"] .location-actions {
     margin-bottom: var(--space-3xl);
 }
 
-.prayer-times-label {
-    font-size: var(--text-sm);
-    color: rgba(255, 255, 255, 0.9);
-    margin: 0 0 var(--space-sm) 0;
-    font-weight: 400;
-}
-
 .location-title {
-    font-size: var(--text-2xl);
-    font-weight: 700;
+    font-size: var(--text-base);
+    font-weight: 500;
     color: #FFFFFF;
-    margin: 0 0 var(--space-xs) 0;
+    margin: 0 0 var(--space-sm) 0;
     letter-spacing: 0.01em;
-}
-
-.location-subtitle {
-    font-size: var(--text-sm);
-    color: rgba(255, 255, 255, 0.7);
-    margin: 0;
-    font-weight: 400;
 }
 
 /* Hidden Action Buttons */
@@ -1096,7 +1074,10 @@ body[dir="rtl"] .location-actions {
 }
 
 .prayer-name-wrapper {
-    display: inline-block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-md);
     margin-bottom: var(--space-2xl);
 }
 
@@ -1110,7 +1091,15 @@ body[dir="rtl"] .location-actions {
     text-transform: uppercase;
 }
 
-/* Hide ornaments */
+/* Prayer Brackets */
+.prayer-bracket {
+    font-size: var(--text-5xl);
+    color: rgba(255, 255, 255, 0.5);
+    font-weight: 300;
+    line-height: 1;
+}
+
+/* Hide old ornaments */
 .prayer-ornament {
     display: none;
 }

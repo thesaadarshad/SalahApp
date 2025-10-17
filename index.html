@@ -34,10 +34,7 @@
 <body>
     <!-- Language Toggle Button -->
     <button id="language-toggle" class="control-btn language-toggle" aria-label="Change language" title="Change language">
-    </button>
-
-    <!-- Settings Toggle Button -->
-    <button id="settings-toggle" class="control-btn settings-toggle" aria-label="Settings" title="Settings">
+        <span class="control-text">Language</span>
     </button>
 
     <!-- Language Dropdown Menu -->
@@ -134,15 +131,12 @@
             <h1 class="header-logo">Prayer Times</h1>
             <nav class="header-menu">
                 <a href="#" class="header-link active" data-page="prayer-times">
-                    <span class="header-icon">🕌</span>
                     <span class="header-text">Prayer Times</span>
                 </a>
                 <a href="#" class="header-link" data-page="date-converter">
-                    <span class="header-icon">📅</span>
                     <span class="header-text">Hijri Converter</span>
                 </a>
                 <a href="#" class="header-link" data-page="asma-ul-husna">
-                    <span class="header-icon">✨</span>
                     <span class="header-text">99 Names</span>
                 </a>
             </nav>
@@ -165,19 +159,16 @@
         <ul class="nav-menu">
             <li class="nav-item active">
                 <a href="#" class="nav-link" data-page="prayer-times">
-                    <span class="nav-icon">🕌</span>
                     <span class="nav-text">Prayer Times</span>
                 </a>
             </li>
             <li class="nav-item">
                 <a href="#" class="nav-link" data-page="date-converter">
-                    <span class="nav-icon">📅</span>
                     <span class="nav-text">Hijri Converter</span>
                 </a>
             </li>
             <li class="nav-item">
                 <a href="#" class="nav-link" data-page="asma-ul-husna">
-                    <span class="nav-icon">✨</span>
                     <span class="nav-text">99 Names of Allah</span>
                 </a>
             </li>
@@ -241,9 +232,7 @@
                 
                 <!-- Center Info -->
                 <div class="center-info">
-                    <p class="prayer-times-label" data-i18n="prayerTimesLabel">Prayer times</p>
                     <h1 class="location-title" id="location-name">Islamic Centre Drogheda</h1>
-                    <p class="location-subtitle" id="location-address">34 Windmill Road, Drogheda, Ireland</p>
                     
                     <!-- Hidden Action Buttons -->
                     <div class="location-actions-hidden">
@@ -253,11 +242,11 @@
                 </div>
                 
                 <div class="countdown-wrapper">
-                    <p class="next-prayer-label">Time until</p>
+                    <p class="next-prayer-label">Upcoming Prayer</p>
                     <div class="prayer-name-wrapper">
-                        <span class="prayer-ornament left">❲</span>
+                        <span class="prayer-bracket left">⟨</span>
                         <h1 class="next-prayer-name" id="next-prayer-name">—</h1>
-                        <span class="prayer-ornament right">❳</span>
+                        <span class="prayer-bracket right">⟩</span>
                     </div>
                     <div class="countdown" id="countdown">
                         <div class="time-unit">
