@@ -901,19 +901,9 @@ body.dark-mode .settings-change-link:hover {
     }
 }
 
-/* Date Header - Now unused, keeping for compatibility */
+/* Date Header - Now unused */
 .date-header {
     display: none;
-}
-
-/* Date Display - Centered */
-.date-display-centered {
-    text-align: center;
-    font-size: var(--text-sm);
-    color: var(--text-primary);
-    font-weight: 400;
-    margin-bottom: var(--space-xl);
-    opacity: 0.9;
 }
 
 .date-separator-header {
@@ -1022,21 +1012,29 @@ body[dir="rtl"] .location-actions {
     justify-content: center;
 }
 
-/* Current Time Display */
+/* Top Info Container */
+.top-info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-md);
+    margin-bottom: var(--space-2xl);
+}
+
+/* Current Time Display - Small and Subtle */
 .current-time-display {
-    font-size: var(--text-2xl);
-    font-weight: 600;
+    font-size: var(--text-sm);
+    font-weight: 400;
     color: var(--text-primary);
-    margin-bottom: var(--space-md);
+    opacity: 0.8;
     letter-spacing: 0.02em;
 }
 
-/* Prayer Times Label */
-.prayer-times-label {
-    font-size: var(--text-sm);
+/* Date Display - Small and Next to Time */
+.date-display-centered {
+    font-size: var(--text-xs);
     color: var(--text-primary);
-    opacity: 0.8;
-    margin-bottom: var(--space-sm);
+    opacity: 0.7;
     font-weight: 400;
 }
 
@@ -1047,17 +1045,17 @@ body[dir="rtl"] .location-actions {
 }
 
 .location-name {
-    font-size: var(--text-xl);
-    font-weight: 700;
+    font-size: var(--text-lg);
+    font-weight: 600;
     color: var(--text-primary);
     margin: 0 0 var(--space-xs) 0;
     letter-spacing: 0.01em;
 }
 
 .location-address {
-    font-size: var(--text-sm);
+    font-size: var(--text-xs);
     color: var(--text-primary);
-    opacity: 0.7;
+    opacity: 0.65;
     margin: 0;
     font-weight: 400;
 }
@@ -1081,9 +1079,9 @@ body[dir="rtl"] .location-actions {
 }
 
 .next-prayer-name {
-    font-size: var(--text-2xl);
-    font-weight: 600;
-    letter-spacing: 0.01em;
+    font-size: var(--text-4xl);
+    font-weight: 700;
+    letter-spacing: 0.02em;
     color: var(--text-primary);
     margin: 0;
     position: relative;
@@ -1499,9 +1497,22 @@ body[dir="rtl"] .location-actions {
         font-size: 0.9rem;
     }
     
-    .date-display-centered {
-        font-size: 0.8rem;
+    .top-info {
+        flex-direction: column;
+        gap: var(--space-xs);
         margin-bottom: var(--space-lg);
+    }
+    
+    .current-time-display {
+        font-size: 0.8rem;
+    }
+    
+    .date-display-centered {
+        font-size: 0.7rem;
+    }
+    
+    .location-name {
+        font-size: var(--text-base);
     }
     
     .date-display {

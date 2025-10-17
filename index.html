@@ -226,13 +226,17 @@
         <div id="main-content" class="main-content hidden">
             <!-- Next Prayer Countdown -->
             <div class="next-prayer-section">
-                <!-- Current Time Display -->
-                <div class="current-time-display">
-                    <span id="current-time">16:00</span>
+                <!-- Top Info: Time + Date -->
+                <div class="top-info">
+                    <div class="current-time-display">
+                        <span id="current-time">16:00</span>
+                    </div>
+                    <div class="date-display-centered">
+                        <span id="gregorian-date-header"></span>
+                        <span class="date-separator-header">•</span>
+                        <span id="hijri-date-header"></span>
+                    </div>
                 </div>
-                
-                <!-- Prayer Times Label -->
-                <div class="prayer-times-label" data-i18n="prayerTimesLabel">Prayer times</div>
                 
                 <!-- Location Info -->
                 <div class="location-info">
@@ -248,13 +252,6 @@
                     <button class="location-action-btn update-location-btn" id="update-location-btn" title="Use my current location">
                         Update
                     </button>
-                </div>
-                
-                <!-- Date Display -->
-                <div class="date-display-centered">
-                    <span id="gregorian-date-header"></span>
-                    <span class="date-separator-header">•</span>
-                    <span id="hijri-date-header"></span>
                 </div>
                 
                 <div class="countdown-wrapper">
