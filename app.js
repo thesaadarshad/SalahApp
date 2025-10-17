@@ -9,15 +9,19 @@ const App = {
     savedLocation: null,
     calculationMethod: 2, // Default: ISNA (2), Jafari (0)
     dateConverterInitialized: false,
+    showOptionalPrayers: false, // Toggle for optional prayer times
 
     // Prayer configurations
     prayers: [
+        { name: 'Imsak', icon: '🌌', color: '#4a5568', optional: true },
         { name: 'Fajr', icon: '🌅', color: '#667eea' },
         { name: 'Sunrise', icon: '☀️', color: '#f6d365', skipInCountdown: true },
         { name: 'Dhuhr', icon: '🌞', color: '#f093fb' },
         { name: 'Asr', icon: '🌤️', color: '#4facfe' },
         { name: 'Maghrib', icon: '🌆', color: '#fa709a' },
-        { name: 'Isha', icon: '🌙', color: '#764ba2' }
+        { name: 'Isha', icon: '🌙', color: '#764ba2' },
+        { name: 'Midnight', icon: '🌃', color: '#2d3748', optional: true },
+        { name: 'Lastthird', icon: '✨', color: '#5a67d8', optional: true, label: 'Tahajjud Time' }
     ],
 
     // Translations
@@ -43,13 +47,17 @@ const App = {
             cancel: 'Cancel',
             updateLocation: 'Update Location',
             findNearbyMosque: 'Find Nearby Mosque',
+            showOptionalTimes: 'Show Optional Times',
             prayers: {
+                Imsak: 'Imsak',
                 Fajr: 'Fajr',
                 Sunrise: 'Sunrise',
                 Dhuhr: 'Dhuhr',
                 Asr: 'Asr',
                 Maghrib: 'Maghrib',
-                Isha: 'Isha'
+                Isha: 'Isha',
+                Midnight: 'Midnight',
+                Lastthird: 'Tahajjud Time'
             }
         },
         ur: {
@@ -73,13 +81,17 @@ const App = {
             cancel: 'منسوخ',
             updateLocation: 'مقام اپ ڈیٹ کریں',
             findNearbyMosque: 'قریبی مسجد تلاش کریں',
+            showOptionalTimes: 'اختیاری اوقات دکھائیں',
             prayers: {
+                Imsak: 'امساک',
                 Fajr: 'فجر',
                 Sunrise: 'طلوع آفتاب',
                 Dhuhr: 'ظہر',
                 Asr: 'عصر',
                 Maghrib: 'مغرب',
-                Isha: 'عشاء'
+                Isha: 'عشاء',
+                Midnight: 'آدھی رات',
+                Lastthird: 'تہجد کا وقت'
             }
         },
         ar: {
@@ -103,13 +115,17 @@ const App = {
             cancel: 'إلغاء',
             updateLocation: 'تحديث الموقع',
             findNearbyMosque: 'ابحث عن مسجد قريب',
+            showOptionalTimes: 'إظهار الأوقات الاختيارية',
             prayers: {
+                Imsak: 'الإمساك',
                 Fajr: 'الفجر',
                 Sunrise: 'الشروق',
                 Dhuhr: 'الظهر',
                 Asr: 'العصر',
                 Maghrib: 'المغرب',
-                Isha: 'العشاء'
+                Isha: 'العشاء',
+                Midnight: 'منتصف الليل',
+                Lastthird: 'وقت التهجد'
             }
         },
         hi: {
@@ -133,13 +149,17 @@ const App = {
             cancel: 'रद्द करें',
             updateLocation: 'स्थान अपडेट करें',
             findNearbyMosque: 'पास की मस्जिद खोजें',
+            showOptionalTimes: 'वैकल्पिक समय दिखाएं',
             prayers: {
+                Imsak: 'इमसाक',
                 Fajr: 'फ़ज्र',
                 Sunrise: 'सूर्योदय',
                 Dhuhr: 'ज़ुहर',
                 Asr: 'अस्र',
                 Maghrib: 'मग़रिब',
-                Isha: 'इशा'
+                Isha: 'इशा',
+                Midnight: 'मध्यरात्रि',
+                Lastthird: 'तहज्जुद का समय'
             }
         },
         tr: {
@@ -163,13 +183,17 @@ const App = {
             cancel: 'İptal',
             updateLocation: 'Konumu Güncelle',
             findNearbyMosque: 'Yakındaki Cami Bul',
+            showOptionalTimes: 'İsteğe Bağlı Zamanları Göster',
             prayers: {
-                Fajr: 'İmsak',
+                Imsak: 'İmsak',
+                Fajr: 'Sabah',
                 Sunrise: 'Güneş',
                 Dhuhr: 'Öğle',
                 Asr: 'İkindi',
                 Maghrib: 'Akşam',
-                Isha: 'Yatsı'
+                Isha: 'Yatsı',
+                Midnight: 'Gece Yarısı',
+                Lastthird: 'Teheccüd Vakti'
             }
         },
         id: {
@@ -193,13 +217,17 @@ const App = {
             cancel: 'Batal',
             updateLocation: 'Perbarui Lokasi',
             findNearbyMosque: 'Cari Masjid Terdekat',
+            showOptionalTimes: 'Tampilkan Waktu Opsional',
             prayers: {
+                Imsak: 'Imsak',
                 Fajr: 'Subuh',
                 Sunrise: 'Terbit',
                 Dhuhr: 'Dzuhur',
                 Asr: 'Ashar',
                 Maghrib: 'Maghrib',
-                Isha: 'Isya'
+                Isha: 'Isya',
+                Midnight: 'Tengah Malam',
+                Lastthird: 'Waktu Tahajud'
             }
         },
         fa: {
@@ -223,13 +251,17 @@ const App = {
             cancel: 'لغو',
             updateLocation: 'به‌روزرسانی موقعیت',
             findNearbyMosque: 'یافتن مسجد نزدیک',
+            showOptionalTimes: 'نمایش اوقات اختیاری',
             prayers: {
+                Imsak: 'امساک',
                 Fajr: 'صبح',
                 Sunrise: 'طلوع آفتاب',
                 Dhuhr: 'ظهر',
                 Asr: 'عصر',
                 Maghrib: 'مغرب',
-                Isha: 'عشاء'
+                Isha: 'عشاء',
+                Midnight: 'نیمه شب',
+                Lastthird: 'وقت تهجد'
             }
         },
         fr: {
@@ -253,13 +285,17 @@ const App = {
             cancel: 'Annuler',
             updateLocation: 'Actualiser la Position',
             findNearbyMosque: 'Trouver une Mosquée à Proximité',
+            showOptionalTimes: 'Afficher les Horaires Facultatifs',
             prayers: {
+                Imsak: 'Imsak',
                 Fajr: 'Fajr',
                 Sunrise: 'Lever du Soleil',
                 Dhuhr: 'Dhuhr',
                 Asr: 'Asr',
                 Maghrib: 'Maghrib',
-                Isha: 'Isha'
+                Isha: 'Isha',
+                Midnight: 'Minuit',
+                Lastthird: 'Temps de Tahajjud'
             }
         },
         bn: {
@@ -283,13 +319,17 @@ const App = {
             cancel: 'বাতিল করুন',
             updateLocation: 'অবস্থান হালনাগাদ করুন',
             findNearbyMosque: 'কাছের মসজিদ খুঁজুন',
+            showOptionalTimes: 'ঐচ্ছিক সময় দেখান',
             prayers: {
+                Imsak: 'ইমসাক',
                 Fajr: 'ফজর',
                 Sunrise: 'সূর্যোদয়',
                 Dhuhr: 'যোহর',
                 Asr: 'আসর',
                 Maghrib: 'মাগরিব',
-                Isha: 'এশা'
+                Isha: 'এশা',
+                Midnight: 'মধ্যরাত্রি',
+                Lastthird: 'তাহাজ্জুদের সময়'
             }
         }
     },
@@ -299,11 +339,13 @@ const App = {
         this.currentLang = localStorage.getItem('language') || 'en';
         this.savedLocation = JSON.parse(localStorage.getItem('savedLocation'));
         this.calculationMethod = parseInt(localStorage.getItem('calculationMethod')) || 2;
+        this.showOptionalPrayers = localStorage.getItem('showOptionalPrayers') === 'true';
         this.initNavigation();
         this.initTheme();
         this.initLanguage();
         this.initLocationModal();
         this.initCalculationMethod();
+        this.initOptionalPrayersToggle();
         this.showLoading();
         
         // Check if user has saved location preference
@@ -705,6 +747,27 @@ const App = {
         this.getUserLocation(true); // Pass true to indicate user-initiated request
     },
 
+    // Initialize optional prayers toggle
+    initOptionalPrayersToggle() {
+        const checkbox = document.getElementById('optional-prayers-toggle');
+        
+        if (!checkbox) return;
+        
+        // Set initial state
+        checkbox.checked = this.showOptionalPrayers;
+        
+        // Add event listener
+        checkbox.addEventListener('change', () => {
+            this.showOptionalPrayers = checkbox.checked;
+            localStorage.setItem('showOptionalPrayers', this.showOptionalPrayers);
+            
+            // Re-display prayer times with new filter
+            if (this.prayerData) {
+                this.displayPrayerTimes();
+            }
+        });
+    },
+
     // Show loading state
     showLoading() {
         document.getElementById('loading').classList.remove('hidden');
@@ -978,20 +1041,30 @@ const App = {
         gridContainer.innerHTML = '';
 
         this.prayers.forEach(prayer => {
+            // Skip optional prayers if toggle is off
+            if (prayer.optional && !this.showOptionalPrayers) return;
+            
             const time = timings[prayer.name];
             if (!time) return;
 
             const card = document.createElement('div');
             card.className = 'prayer-time-card';
+            
+            // Add optional class for styling
+            if (prayer.optional) {
+                card.classList.add('optional-prayer');
+            }
+            
             card.style.setProperty('--accent-color', prayer.color);
             card.dataset.prayer = prayer.name;
 
-            const prayerName = t.prayers[prayer.name] || prayer.name;
+            // Use custom label if available (e.g., "Tahajjud Time" for Lastthird)
+            const displayName = prayer.label ? t.prayers[prayer.name] || prayer.label : t.prayers[prayer.name] || prayer.name;
 
             card.innerHTML = `
                 <div class="prayer-info">
                     <span class="prayer-icon">${prayer.icon}</span>
-                    <span class="prayer-name">${prayerName}</span>
+                    <span class="prayer-name">${displayName}</span>
                     <span class="prayer-time">${this.formatTime(time)}</span>
                 </div>
             `;
