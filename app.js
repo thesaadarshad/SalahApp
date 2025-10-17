@@ -1117,9 +1117,9 @@ const App = {
         const now = new Date();
         const { timings } = this.prayerData;
         
-        // Get prayers that should be included in countdown (excluding Sunrise)
+        // Get only mandatory prayers for countdown (exclude optional prayers and Sunrise)
         const prayerTimes = this.prayers
-            .filter(p => !p.skipInCountdown)
+            .filter(p => !p.skipInCountdown && !p.optional)
             .map(prayer => ({
                 ...prayer,
                 time: timings[prayer.name],
@@ -1133,8 +1133,8 @@ const App = {
             }
         }
 
-        // If no prayer found today, return Fajr for tomorrow
-        const fajr = prayerTimes[0];
+        // If no prayer found today, return Fajr for tomorrow (first mandatory prayer)
+        const fajr = prayerTimes.find(p => p.name === 'Fajr') || prayerTimes[0];
         fajr.date.setDate(fajr.date.getDate() + 1);
         return fajr;
     },
