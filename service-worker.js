@@ -1,6 +1,6 @@
 // Service Worker for Prayer Times PWA
-const CACHE_NAME = 'prayer-times-v1.1.0';
-const PRAYER_CACHE_NAME = 'prayer-times-data-v1';
+const CACHE_NAME = 'prayer-times-v1.2.0';
+const PRAYER_CACHE_NAME = 'prayer-times-data-v1.2';
 const CACHE_DURATION_DAYS = 30;
 
 // Static assets to cache
