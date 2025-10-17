@@ -226,32 +226,29 @@
         <div id="main-content" class="main-content hidden">
             <!-- Next Prayer Countdown -->
             <div class="next-prayer-section">
-                <!-- Top Info: Time + Date -->
-                <div class="top-info">
-                    <div class="current-time-display">
-                        <span id="current-time">16:00</span>
+                <!-- Compact Header -->
+                <div class="compact-header">
+                    <!-- Time + Date -->
+                    <div class="time-date-row">
+                        <span id="current-time" class="time-small">16:00</span>
+                        <span class="date-small">
+                            <span id="gregorian-date-header"></span>
+                            <span class="date-separator-header">•</span>
+                            <span id="hijri-date-header"></span>
+                        </span>
                     </div>
-                    <div class="date-display-centered">
-                        <span id="gregorian-date-header"></span>
-                        <span class="date-separator-header">•</span>
-                        <span id="hijri-date-header"></span>
+                    
+                    <!-- Prayer Times Label -->
+                    <h2 class="prayer-times-heading" data-i18n="prayerTimesLabel">Prayer times</h2>
+                    
+                    <!-- Location with Actions -->
+                    <div class="location-row">
+                        <span class="location-name" id="location-name">Loading...</span>
+                        <span class="location-actions-inline">
+                            (<button class="location-link-btn change-location-btn" id="change-location-btn">Change</button> - 
+                            <button class="location-link-btn update-location-btn" id="update-location-btn">Update</button>)
+                        </span>
                     </div>
-                </div>
-                
-                <!-- Location Info -->
-                <div class="location-info">
-                    <h2 class="location-name" id="location-name">Loading...</h2>
-                    <p class="location-address" id="location-address"></p>
-                </div>
-                
-                <!-- Location Action Buttons -->
-                <div class="location-actions">
-                    <button class="location-action-btn change-location-btn" id="change-location-btn" title="Change location manually">
-                        Change
-                    </button>
-                    <button class="location-action-btn update-location-btn" id="update-location-btn" title="Use my current location">
-                        Update
-                    </button>
                 </div>
                 
                 <div class="countdown-wrapper">

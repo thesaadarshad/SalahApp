@@ -956,13 +956,9 @@ body.dark-mode .method-dropdown:hover {
 }
 
 /* Location */
-/* Location Actions */
+/* Location Actions - Hidden (using inline actions now) */
 .location-actions {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: var(--space-xs);
-    margin-bottom: var(--space-xl);
+    display: none;
 }
 
 .location-action-btn {
@@ -1012,52 +1008,71 @@ body[dir="rtl"] .location-actions {
     justify-content: center;
 }
 
-/* Top Info Container */
-.top-info {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: var(--space-md);
-    margin-bottom: var(--space-2xl);
+/* Compact Header */
+.compact-header {
+    text-align: center;
+    padding: var(--space-md) 0;
+    margin-bottom: var(--space-3xl);
 }
 
-/* Current Time Display - Small and Subtle */
-.current-time-display {
-    font-size: var(--text-sm);
-    font-weight: 400;
-    color: var(--text-primary);
-    opacity: 0.8;
-    letter-spacing: 0.02em;
-}
-
-/* Date Display - Small and Next to Time */
-.date-display-centered {
+/* Time + Date Row */
+.time-date-row {
     font-size: var(--text-xs);
     color: var(--text-primary);
-    opacity: 0.7;
+    opacity: 0.75;
+    margin-bottom: var(--space-xs);
     font-weight: 400;
 }
 
-/* Location Info */
-.location-info {
-    text-align: center;
-    margin-bottom: var(--space-md);
+.time-small {
+    margin-right: var(--space-sm);
 }
 
-.location-name {
-    font-size: var(--text-lg);
-    font-weight: 600;
+.date-small {
+    font-size: 0.9em;
+}
+
+/* Prayer Times Heading */
+.prayer-times-heading {
+    font-size: var(--text-xl);
+    font-weight: 700;
     color: var(--text-primary);
-    margin: 0 0 var(--space-xs) 0;
+    margin: 0 0 var(--space-sm) 0;
     letter-spacing: 0.01em;
 }
 
-.location-address {
-    font-size: var(--text-xs);
+/* Location Row with Inline Actions */
+.location-row {
+    font-size: var(--text-base);
     color: var(--text-primary);
-    opacity: 0.65;
-    margin: 0;
-    font-weight: 400;
+    font-weight: 500;
+}
+
+.location-name {
+    color: var(--text-primary);
+}
+
+.location-actions-inline {
+    font-size: var(--text-sm);
+    opacity: 0.8;
+    margin-left: var(--space-xs);
+}
+
+.location-link-btn {
+    background: none;
+    border: none;
+    color: var(--text-primary);
+    font-size: inherit;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 0;
+    text-decoration: underline;
+    opacity: 0.9;
+    transition: opacity 0.2s ease;
+}
+
+.location-link-btn:hover {
+    opacity: 1;
 }
 
 .next-prayer-label {
@@ -1497,22 +1512,28 @@ body[dir="rtl"] .location-actions {
         font-size: 0.9rem;
     }
     
-    .top-info {
-        flex-direction: column;
-        gap: var(--space-xs);
-        margin-bottom: var(--space-lg);
+    .compact-header {
+        padding: var(--space-sm) 0;
+        margin-bottom: var(--space-2xl);
     }
     
-    .current-time-display {
-        font-size: 0.8rem;
-    }
-    
-    .date-display-centered {
+    .time-date-row {
         font-size: 0.7rem;
     }
     
-    .location-name {
-        font-size: var(--text-base);
+    .prayer-times-heading {
+        font-size: var(--text-lg);
+    }
+    
+    .location-row {
+        font-size: var(--text-sm);
+    }
+    
+    .location-actions-inline {
+        display: block;
+        margin-left: 0;
+        margin-top: var(--space-xs);
+        font-size: 0.8rem;
     }
     
     .date-display {
