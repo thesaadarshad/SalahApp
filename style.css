@@ -901,28 +901,24 @@ body.dark-mode .settings-change-link:hover {
     }
 }
 
-/* Date Header */
+/* Date Header - Now unused, keeping for compatibility */
 .date-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    padding: var(--space-xl) var(--space-2xl);
-    background: transparent;
-    border-bottom: none;
+    display: none;
 }
 
-.date-display {
-    display: flex;
-    align-items: center;
-    gap: var(--space-sm);
+/* Date Display - Centered */
+.date-display-centered {
+    text-align: center;
     font-size: var(--text-sm);
     color: var(--text-primary);
     font-weight: 400;
+    margin-bottom: var(--space-xl);
+    opacity: 0.9;
 }
 
 .date-separator-header {
-    opacity: 0.4;
-    color: var(--text-muted);
+    opacity: 0.6;
+    margin: 0 var(--space-xs);
 }
 
 #gregorian-date-header {
@@ -1477,11 +1473,9 @@ body[dir="rtl"] .location-actions {
         font-size: 0.9rem;
     }
     
-    .date-header {
-        padding: var(--space-md) var(--space-lg);
-        flex-direction: column;
-        gap: var(--space-sm);
-        align-items: center;
+    .date-display-centered {
+        font-size: 0.8rem;
+        margin-bottom: var(--space-lg);
     }
     
     .date-display {
@@ -1662,9 +1656,7 @@ body[dir="rtl"] .language-toggle {
     /* Stay on right */
 }
 
-body[dir="rtl"] .date-header {
-    flex-direction: row-reverse;
-}
+/* Date header RTL - no longer needed (centered) */
 
 body[dir="rtl"] .date-display {
     flex-direction: row-reverse;
@@ -2090,10 +2082,7 @@ body[dir="rtl"] .date-display {
 }
 
 @media (max-width: 640px) {
-    body[dir="rtl"] .date-header {
-        flex-direction: column;
-        align-items: center;
-    }
+    /* Date header RTL mobile - no longer needed (centered) */
     
     body[dir="rtl"] .date-display {
         text-align: center;
