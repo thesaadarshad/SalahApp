@@ -614,6 +614,12 @@ const App = {
             btn.classList.toggle('active', parseInt(btn.dataset.method) === method);
         });
         
+        // Stop the current countdown to prevent showing incorrect times
+        if (this.countdownInterval) {
+            clearInterval(this.countdownInterval);
+            this.countdownInterval = null;
+        }
+        
         // Reload prayer times with new method
         this.showLoading();
         if (this.locationMode === 'manual' && this.savedLocation) {
