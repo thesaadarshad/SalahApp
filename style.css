@@ -1,20 +1,20 @@
-/* Golden Ratio Constants: φ = 1.618 */
+/* MasjidBox Style - Clean Prayer Times Design */
 :root {
-    /* Golden Ratio Scale */
+    /* Color Palette - Teal/Green Theme */
     --phi: 1.618;
-    --phi-2: 2.618;
-    --phi-3: 4.236;
+    --bg-primary: #1a6b5e;
+    --bg-secondary: #155a4f;
+    --bg-gradient-start: #1a6b5e;
+    --bg-gradient-end: #155a4f;
     
-    /* Color Palette - Light Mode */
-    --bg-primary: #FAFBFC;
-    --bg-secondary: #FFFFFF;
-    --bg-gradient-start: #667eea;
-    --bg-gradient-end: #764ba2;
+    --text-primary: #FFFFFF;
+    --text-secondary: rgba(255, 255, 255, 0.95);
+    --text-muted: rgba(255, 255, 255, 0.7);
+    --text-light: rgba(255, 255, 255, 0.6);
     
-    --text-primary: #2D3748;
-    --text-secondary: #4A5568;
-    --text-muted: #718096;
-    --text-light: #A0AEC0;
+    --countdown-box-bg: rgba(0, 0, 0, 0.3);
+    --card-bg: rgba(255, 255, 255, 0.1);
+    --border-color: rgba(255, 255, 255, 0.2);
     
     --accent-fajr: #667eea;
     --accent-dhuhr: #f093fb;
@@ -22,47 +22,47 @@
     --accent-maghrib: #fa709a;
     --accent-isha: #764ba2;
     
-    --border-color: #E2E8F0;
-    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06);
-    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07);
-    --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.08);
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.15);
+    --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.2);
     
-    /* Typography - Golden Ratio Scale */
-    --text-xs: 0.764rem;     /* base / φ² */
-    --text-sm: 0.875rem;     /* base / φ */
-    --text-base: 1rem;       /* 16px */
-    --text-lg: 1.125rem;     /* base * φ / 1.5 */
-    --text-xl: 1.5rem;       /* base * φ */
-    --text-2xl: 2.25rem;     /* base * φ² */
-    --text-3xl: 3.5rem;      /* base * φ³ */
-    --text-4xl: 5.5rem;      /* base * φ⁴ */
+    /* Typography */
+    --text-xs: 0.75rem;
+    --text-sm: 0.875rem;
+    --text-base: 1rem;
+    --text-lg: 1.125rem;
+    --text-xl: 1.5rem;
+    --text-2xl: 2rem;
+    --text-3xl: 3rem;
+    --text-4xl: 4rem;
+    --text-5xl: 5rem;
     
-    /* Spacing - Golden Ratio Based */
-    --space-xs: 0.382rem;    /* 6px */
-    --space-sm: 0.618rem;    /* 10px */
-    --space-md: 1rem;        /* 16px */
-    --space-lg: 1.618rem;    /* 26px */
-    --space-xl: 2.618rem;    /* 42px */
-    --space-2xl: 4.236rem;   /* 68px */
-    --space-3xl: 6.854rem;   /* 110px */
+    /* Spacing */
+    --space-xs: 0.5rem;
+    --space-sm: 0.75rem;
+    --space-md: 1rem;
+    --space-lg: 1.5rem;
+    --space-xl: 2rem;
+    --space-2xl: 3rem;
+    --space-3xl: 4rem;
 }
 
-/* Dark Mode Colors */
+/* Dark Mode - Keep same teal theme */
 body.dark-mode {
-    --bg-primary: #0f172a;
-    --bg-secondary: #1e293b;
-    --bg-gradient-start: #667eea;
-    --bg-gradient-end: #764ba2;
+    --bg-primary: #155a4f;
+    --bg-secondary: #0f4a40;
+    --bg-gradient-start: #155a4f;
+    --bg-gradient-end: #0f4a40;
     
-    --text-primary: #f1f5f9;
-    --text-secondary: #cbd5e1;
-    --text-muted: #94a3b8;
-    --text-light: #64748b;
+    --text-primary: #FFFFFF;
+    --text-secondary: rgba(255, 255, 255, 0.95);
+    --text-muted: rgba(255, 255, 255, 0.7);
+    --text-light: rgba(255, 255, 255, 0.6);
     
-    --border-color: #334155;
-    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
-    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.4);
-    --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.5);
+    --border-color: rgba(255, 255, 255, 0.2);
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.2);
+    --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.25);
+    --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.3);
 }
 
 * {
@@ -75,21 +75,20 @@ body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    background: var(--bg-primary);
+    background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
     color: var(--text-primary);
-    line-height: var(--phi);
+    line-height: 1.6;
     min-height: 100vh;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: calc(70px + var(--space-xl)) var(--space-lg) var(--space-lg);
+    flex-direction: column;
+    padding: 0;
+    margin: 0;
     transition: background 0.3s ease, color 0.3s ease;
-    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
 }
 
 @media (max-width: 768px) {
     body {
-        padding: calc(var(--space-3xl) + var(--space-lg)) var(--space-lg) var(--space-lg);
+        padding: 0;
     }
 }
 
@@ -708,17 +707,19 @@ body.dark-mode .settings-change-link:hover {
 
 .container {
     width: 100%;
-    max-width: 680px; /* φ × 420px */
+    max-width: 100%;
     margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
 /* Loading State */
 .loading {
     text-align: center;
     padding: var(--space-3xl) var(--space-xl);
-    background: var(--bg-secondary);
-    border-radius: calc(var(--space-lg) * var(--phi));
-    box-shadow: var(--shadow-lg);
+    background: transparent;
+    color: var(--text-primary);
     animation: fadeIn 0.3s ease-in;
 }
 
@@ -745,9 +746,8 @@ body.dark-mode .settings-change-link:hover {
 .error {
     text-align: center;
     padding: var(--space-3xl) var(--space-xl);
-    background: var(--bg-secondary);
-    border-radius: calc(var(--space-lg) * var(--phi));
-    box-shadow: var(--shadow-lg);
+    background: transparent;
+    color: var(--text-primary);
     animation: fadeIn 0.3s ease-in;
 }
 
@@ -921,11 +921,15 @@ body.dark-mode .settings-change-link:hover {
 
 /* Main Content */
 .main-content {
-    background: var(--bg-secondary);
-    border-radius: calc(var(--space-lg) * var(--phi));
-    box-shadow: var(--shadow-lg);
-    overflow: hidden;
+    background: transparent;
+    border-radius: 0;
+    box-shadow: none;
+    overflow: visible;
     animation: fadeIn 0.5s ease-in;
+    padding: var(--space-xl);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
 }
 
 @keyframes fadeIn {
@@ -941,10 +945,10 @@ body.dark-mode .settings-change-link:hover {
 .date-header {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    padding: var(--space-lg) var(--space-xl);
-    background: var(--bg-primary);
-    border-bottom: 1px solid var(--border-color);
+    align-items: flex-start;
+    padding: var(--space-xl) var(--space-2xl);
+    background: transparent;
+    border-bottom: none;
 }
 
 .date-display {
@@ -952,8 +956,8 @@ body.dark-mode .settings-change-link:hover {
     align-items: center;
     gap: var(--space-sm);
     font-size: var(--text-sm);
-    color: var(--text-secondary);
-    font-weight: 500;
+    color: var(--text-primary);
+    font-weight: 400;
 }
 
 .date-separator-header {
@@ -1066,19 +1070,23 @@ body[dir="rtl"] .location-actions {
 
 /* Next Prayer Section */
 .next-prayer-section {
-    background: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
-    color: white;
+    background: transparent;
+    color: var(--text-primary);
     padding: var(--space-2xl) var(--space-xl);
     text-align: center;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .next-prayer-label {
-    font-size: var(--text-sm);
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    opacity: 0.9;
-    margin-bottom: var(--space-md);
-    font-weight: 500;
+    font-size: var(--text-lg);
+    text-transform: none;
+    letter-spacing: 0.01em;
+    color: var(--text-primary);
+    margin-bottom: var(--space-sm);
+    font-weight: 400;
 }
 
 .prayer-name-wrapper {
@@ -1091,14 +1099,10 @@ body[dir="rtl"] .location-actions {
 }
 
 .next-prayer-name {
-    font-size: calc(var(--text-3xl) * 1.2);
-    font-weight: 700;
-    letter-spacing: 0.02em;
-    text-shadow: 0 2px 12px rgba(255, 255, 255, 0.3);
-    background: linear-gradient(180deg, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.9) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    font-size: var(--text-2xl);
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    color: var(--text-primary);
     margin: 0;
     position: relative;
     padding: 0 var(--space-xs);
@@ -1139,44 +1143,47 @@ body[dir="rtl"] .location-actions {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: var(--space-sm);
-    margin-top: var(--space-lg);
+    gap: var(--space-md);
+    margin-top: var(--space-2xl);
 }
 
 .time-unit {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: var(--space-xs);
+    gap: var(--space-sm);
 }
 
 .time-value {
-    font-size: var(--text-3xl);
-    font-weight: 700;
+    font-size: var(--text-4xl);
+    font-weight: 600;
     font-variant-numeric: tabular-nums;
     line-height: 1;
-    background: rgba(255, 255, 255, 0.15);
-    padding: var(--space-md) var(--space-lg);
-    border-radius: var(--space-md);
-    min-width: calc(var(--space-2xl) * var(--phi));
-    backdrop-filter: blur(10px);
+    background: var(--countdown-box-bg);
+    color: var(--text-primary);
+    padding: var(--space-lg) var(--space-xl);
+    border-radius: 12px;
+    min-width: 100px;
+    text-align: center;
+    box-shadow: var(--shadow-md);
 }
 
 .time-label {
-    font-size: var(--text-xs);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    opacity: 0.8;
-    font-weight: 500;
+    font-size: var(--text-sm);
+    text-transform: capitalize;
+    letter-spacing: 0.02em;
+    color: var(--text-secondary);
+    font-weight: 400;
 }
 
 .time-separator {
-    font-size: var(--text-2xl);
+    font-size: var(--text-3xl);
     font-weight: 300;
-    opacity: 0.6;
+    color: var(--text-primary);
+    opacity: 0.8;
     margin: 0 var(--space-xs);
-    align-self: flex-start;
-    margin-top: var(--space-sm);
+    align-self: center;
+    margin-bottom: var(--space-xl);
 }
 
 /* Divider */
