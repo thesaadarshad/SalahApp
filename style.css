@@ -963,29 +963,38 @@ body[dir="rtl"] .location-actions {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: var(--space-xl);
+    margin-bottom: var(--space-lg);
     flex-wrap: wrap;
     gap: var(--space-md);
+    padding-bottom: var(--space-sm);
+    border-bottom: 1px solid var(--border-color);
 }
 
 .section-title {
-    text-align: center;
-    font-size: var(--text-lg);
-    font-weight: 600;
-    color: var(--text-primary);
+    font-size: var(--text-base);
+    font-weight: 500;
+    color: var(--text-muted);
     margin: 0;
-    letter-spacing: -0.01em;
-    flex: 1;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    font-size: var(--text-xs);
 }
 
 /* Optional Prayers Toggle */
 .optional-toggle {
     display: flex;
     align-items: center;
-    gap: var(--space-sm);
+    gap: var(--space-xs);
     cursor: pointer;
     user-select: none;
     position: relative;
+    padding: calc(var(--space-xs) / 2) var(--space-sm);
+    border-radius: var(--space-sm);
+    transition: background-color 0.2s ease;
+}
+
+.optional-toggle:hover {
+    background: var(--bg-primary);
 }
 
 .optional-toggle-input {
@@ -996,37 +1005,39 @@ body[dir="rtl"] .location-actions {
 
 .optional-toggle-slider {
     position: relative;
-    width: 44px;
-    height: 24px;
+    width: 36px;
+    height: 20px;
     background: var(--border-color);
-    border-radius: 34px;
+    border-radius: 10px;
     transition: background-color 0.3s ease;
 }
 
 .optional-toggle-slider::before {
     content: '';
     position: absolute;
-    height: 18px;
-    width: 18px;
+    height: 14px;
+    width: 14px;
     left: 3px;
     bottom: 3px;
     background: white;
     border-radius: 50%;
     transition: transform 0.3s ease;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .optional-toggle-input:checked + .optional-toggle-slider {
-    background: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
+    background: var(--bg-gradient-start);
 }
 
 .optional-toggle-input:checked + .optional-toggle-slider::before {
-    transform: translateX(20px);
+    transform: translateX(16px);
 }
 
 .optional-toggle-label {
-    font-size: var(--text-sm);
-    color: var(--text-secondary);
+    font-size: var(--text-xs);
+    color: var(--text-muted);
     font-weight: 500;
+    letter-spacing: 0.01em;
 }
 
 /* Prayer Times Grid */
@@ -1398,21 +1409,36 @@ body[dir="rtl"] .location-actions {
     /* Optional Toggle on Mobile */
     .section-header {
         flex-direction: column;
-        align-items: stretch;
+        align-items: flex-start;
+        gap: var(--space-sm);
+        padding-bottom: var(--space-xs);
     }
     
     .section-title {
         text-align: left;
-        margin-bottom: var(--space-sm);
     }
     
     .optional-toggle {
         justify-content: flex-start;
-        padding: var(--space-sm) 0;
+        padding: calc(var(--space-xs) / 2) var(--space-xs);
     }
     
     .optional-toggle-label {
-        font-size: 0.8rem;
+        font-size: 0.7rem;
+    }
+    
+    .optional-toggle-slider {
+        width: 32px;
+        height: 18px;
+    }
+    
+    .optional-toggle-slider::before {
+        height: 12px;
+        width: 12px;
+    }
+    
+    .optional-toggle-input:checked + .optional-toggle-slider::before {
+        transform: translateX(14px);
     }
 }
 
