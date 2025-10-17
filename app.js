@@ -48,6 +48,18 @@ const App = {
             updateLocation: 'Update Location',
             findNearbyMosque: 'Find Nearby Mosque',
             showOptionalTimes: 'Show Optional Times',
+            calculationMethod: 'Method',
+            method_mwl: 'Muslim World League',
+            method_isna: 'ISNA (North America)',
+            method_ummalqura: 'Umm Al-Qura (Makkah)',
+            method_egyptian: 'Egyptian',
+            method_karachi: 'University of Karachi',
+            method_jafari: 'Jafari (Shia)',
+            method_tehran: 'Tehran',
+            method_gulf: 'Gulf Region',
+            method_turkey: 'Turkey',
+            method_singapore: 'Singapore',
+            method_france: 'France (UOIF)',
             prayers: {
                 Imsak: 'Imsak',
                 Fajr: 'Fajr',
@@ -82,6 +94,18 @@ const App = {
             updateLocation: 'مقام اپ ڈیٹ کریں',
             findNearbyMosque: 'قریبی مسجد تلاش کریں',
             showOptionalTimes: 'اختیاری اوقات دکھائیں',
+            calculationMethod: 'طریقہ',
+            method_mwl: 'مسلم ورلڈ لیگ',
+            method_isna: 'اسلامک سوسائٹی (امریکہ)',
+            method_ummalqura: 'ام القریٰ (مکہ)',
+            method_egyptian: 'مصری',
+            method_karachi: 'یونیورسٹی آف کراچی',
+            method_jafari: 'جعفری (شیعہ)',
+            method_tehran: 'تہران',
+            method_gulf: 'خلیجی خطہ',
+            method_turkey: 'ترکی',
+            method_singapore: 'سنگاپور',
+            method_france: 'فرانس',
             prayers: {
                 Imsak: 'امساک',
                 Fajr: 'فجر',
@@ -116,6 +140,18 @@ const App = {
             updateLocation: 'تحديث الموقع',
             findNearbyMosque: 'ابحث عن مسجد قريب',
             showOptionalTimes: 'إظهار الأوقات الاختيارية',
+            calculationMethod: 'الطريقة',
+            method_mwl: 'رابطة العالم الإسلامي',
+            method_isna: 'الجمعية الإسلامية (أمريكا)',
+            method_ummalqura: 'أم القرى (مكة)',
+            method_egyptian: 'المصرية',
+            method_karachi: 'جامعة كراتشي',
+            method_jafari: 'الجعفري (شيعة)',
+            method_tehran: 'طهران',
+            method_gulf: 'منطقة الخليج',
+            method_turkey: 'تركيا',
+            method_singapore: 'سنغافورة',
+            method_france: 'فرنسا',
             prayers: {
                 Imsak: 'الإمساك',
                 Fajr: 'الفجر',
@@ -150,6 +186,18 @@ const App = {
             updateLocation: 'स्थान अपडेट करें',
             findNearbyMosque: 'पास की मस्जिद खोजें',
             showOptionalTimes: 'वैकल्पिक समय दिखाएं',
+            calculationMethod: 'विधि',
+            method_mwl: 'मुस्लिम वर्ल्ड लीग',
+            method_isna: 'ISNA (उत्तरी अमेरिका)',
+            method_ummalqura: 'उम्म अल-कुरा (मक्का)',
+            method_egyptian: 'मिस्री',
+            method_karachi: 'यूनिवर्सिटी ऑफ कराची',
+            method_jafari: 'जाफ़री (शिया)',
+            method_tehran: 'तेहरान',
+            method_gulf: 'खाड़ी क्षेत्र',
+            method_turkey: 'तुर्की',
+            method_singapore: 'सिंगापुर',
+            method_france: 'फ्रांस',
             prayers: {
                 Imsak: 'इमसाक',
                 Fajr: 'फ़ज्र',
@@ -184,6 +232,18 @@ const App = {
             updateLocation: 'Konumu Güncelle',
             findNearbyMosque: 'Yakındaki Cami Bul',
             showOptionalTimes: 'İsteğe Bağlı Zamanları Göster',
+            calculationMethod: 'Yöntem',
+            method_mwl: 'Dünya İslam Birliği',
+            method_isna: 'ISNA (Kuzey Amerika)',
+            method_ummalqura: 'Ümmü\'l-Kura (Mekke)',
+            method_egyptian: 'Mısır',
+            method_karachi: 'Karaçi Üniversitesi',
+            method_jafari: 'Caferi (Şii)',
+            method_tehran: 'Tahran',
+            method_gulf: 'Körfez Bölgesi',
+            method_turkey: 'Türkiye Diyanet',
+            method_singapore: 'Singapur',
+            method_france: 'Fransa',
             prayers: {
                 Imsak: 'İmsak',
                 Fajr: 'Sabah',
@@ -218,6 +278,18 @@ const App = {
             updateLocation: 'Perbarui Lokasi',
             findNearbyMosque: 'Cari Masjid Terdekat',
             showOptionalTimes: 'Tampilkan Waktu Opsional',
+            calculationMethod: 'Metode',
+            method_mwl: 'Muslim World League',
+            method_isna: 'ISNA (Amerika Utara)',
+            method_ummalqura: 'Umm Al-Qura (Mekkah)',
+            method_egyptian: 'Mesir',
+            method_karachi: 'Universitas Karachi',
+            method_jafari: 'Jafari (Syiah)',
+            method_tehran: 'Teheran',
+            method_gulf: 'Wilayah Teluk',
+            method_turkey: 'Turki',
+            method_singapore: 'Singapura',
+            method_france: 'Prancis',
             prayers: {
                 Imsak: 'Imsak',
                 Fajr: 'Subuh',
@@ -252,6 +324,18 @@ const App = {
             updateLocation: 'به‌روزرسانی موقعیت',
             findNearbyMosque: 'یافتن مسجد نزدیک',
             showOptionalTimes: 'نمایش اوقات اختیاری',
+            calculationMethod: 'روش',
+            method_mwl: 'اتحادیه جهانی مسلمانان',
+            method_isna: 'ISNA (آمریکای شمالی)',
+            method_ummalqura: 'ام‌القرای (مکه)',
+            method_egyptian: 'مصری',
+            method_karachi: 'دانشگاه کراچی',
+            method_jafari: 'جعفری (شیعه)',
+            method_tehran: 'تهران',
+            method_gulf: 'منطقه خلیج',
+            method_turkey: 'ترکیه',
+            method_singapore: 'سنگاپور',
+            method_france: 'فرانسه',
             prayers: {
                 Imsak: 'امساک',
                 Fajr: 'صبح',
@@ -286,6 +370,18 @@ const App = {
             updateLocation: 'Actualiser la Position',
             findNearbyMosque: 'Trouver une Mosquée à Proximité',
             showOptionalTimes: 'Afficher les Horaires Facultatifs',
+            calculationMethod: 'Méthode',
+            method_mwl: 'Ligue Islamique Mondiale',
+            method_isna: 'ISNA (Amérique du Nord)',
+            method_ummalqura: 'Umm Al-Qura (La Mecque)',
+            method_egyptian: 'Égyptien',
+            method_karachi: 'Université de Karachi',
+            method_jafari: 'Jafari (Chiite)',
+            method_tehran: 'Téhéran',
+            method_gulf: 'Région du Golfe',
+            method_turkey: 'Turquie',
+            method_singapore: 'Singapour',
+            method_france: 'France (UOIF)',
             prayers: {
                 Imsak: 'Imsak',
                 Fajr: 'Fajr',
@@ -320,6 +416,18 @@ const App = {
             updateLocation: 'অবস্থান হালনাগাদ করুন',
             findNearbyMosque: 'কাছের মসজিদ খুঁজুন',
             showOptionalTimes: 'ঐচ্ছিক সময় দেখান',
+            calculationMethod: 'পদ্ধতি',
+            method_mwl: 'মুসলিম ওয়ার্ল্ড লীগ',
+            method_isna: 'ISNA (উত্তর আমেরিকা)',
+            method_ummalqura: 'উম্মুল কুরা (মক্কা)',
+            method_egyptian: 'মিশরীয়',
+            method_karachi: 'কারাচি বিশ্ববিদ্যালয়',
+            method_jafari: 'জাফরি (শিয়া)',
+            method_tehran: 'তেহরান',
+            method_gulf: 'উপসাগরীয় অঞ্চল',
+            method_turkey: 'তুরস্ক',
+            method_singapore: 'সিঙ্গাপুর',
+            method_france: 'ফ্রান্স',
             prayers: {
                 Imsak: 'ইমসাক',
                 Fajr: 'ফজর',
@@ -470,6 +578,25 @@ const App = {
             mosqueLink.childNodes[1].textContent = ` ${t.findNearbyMosque}`;
         }
         
+        // Update calculation method dropdown
+        const methodLabel = document.querySelector('.method-label');
+        if (methodLabel) methodLabel.textContent = t.calculationMethod;
+        
+        const methodDropdown = document.getElementById('calculation-method');
+        if (methodDropdown) {
+            const options = methodDropdown.querySelectorAll('option');
+            options.forEach(option => {
+                const key = option.getAttribute('data-i18n-option');
+                if (key && t[key]) {
+                    option.textContent = t[key];
+                }
+            });
+        }
+        
+        // Update optional prayers toggle label
+        const optionalToggleLabel = document.querySelector('.optional-toggle-label');
+        if (optionalToggleLabel) optionalToggleLabel.textContent = t.showOptionalTimes;
+        
         // Redisplay prayer times if loaded
         if (this.prayerData) {
             this.displayPrayerTimes();
@@ -584,21 +711,15 @@ const App = {
 
     // Initialize calculation method
     initCalculationMethod() {
-        const methodButtons = document.querySelectorAll('.method-btn');
+        const methodDropdown = document.getElementById('calculation-method');
         
-        // Set active button based on saved method
-        methodButtons.forEach(btn => {
-            const method = parseInt(btn.dataset.method);
-            if (method === this.calculationMethod) {
-                btn.classList.add('active');
-            } else {
-                btn.classList.remove('active');
-            }
-            
-            // Add click event
-            btn.addEventListener('click', () => {
-                this.switchCalculationMethod(method);
-            });
+        // Set selected option based on saved method
+        methodDropdown.value = this.calculationMethod;
+        
+        // Add change event
+        methodDropdown.addEventListener('change', (e) => {
+            const method = parseInt(e.target.value);
+            this.switchCalculationMethod(method);
         });
     },
 
@@ -609,10 +730,9 @@ const App = {
         this.calculationMethod = method;
         localStorage.setItem('calculationMethod', method);
         
-        // Update active button
-        document.querySelectorAll('.method-btn').forEach(btn => {
-            btn.classList.toggle('active', parseInt(btn.dataset.method) === method);
-        });
+        // Update dropdown value
+        const methodDropdown = document.getElementById('calculation-method');
+        methodDropdown.value = method;
         
         // Stop the current countdown to prevent showing incorrect times
         if (this.countdownInterval) {

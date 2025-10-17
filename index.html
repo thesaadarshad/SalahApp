@@ -185,9 +185,21 @@
                     <span class="date-separator-header">•</span>
                     <span id="hijri-date-header"></span>
                 </div>
-                <div class="calculation-method-toggle">
-                    <button class="method-btn active" data-method="2" title="Sunni (ISNA)" aria-label="Sunni calculation method">Sunni</button>
-                    <button class="method-btn" data-method="0" title="Shia Jafari" aria-label="Shia Jafari calculation method">Jafari</button>
+                <div class="calculation-method-selector">
+                    <label for="calculation-method" class="method-label" data-i18n="calculationMethod">Calculation Method</label>
+                    <select id="calculation-method" class="method-dropdown">
+                        <option value="3" data-i18n-option="method_mwl">Muslim World League</option>
+                        <option value="2" data-i18n-option="method_isna">ISNA (North America)</option>
+                        <option value="4" data-i18n-option="method_ummalqura">Umm Al-Qura (Makkah)</option>
+                        <option value="5" data-i18n-option="method_egyptian">Egyptian</option>
+                        <option value="1" data-i18n-option="method_karachi">University of Karachi</option>
+                        <option value="0" data-i18n-option="method_jafari">Jafari (Shia)</option>
+                        <option value="7" data-i18n-option="method_tehran">Tehran</option>
+                        <option value="8" data-i18n-option="method_gulf">Gulf Region</option>
+                        <option value="13" data-i18n-option="method_turkey">Turkey</option>
+                        <option value="11" data-i18n-option="method_singapore">Singapore</option>
+                        <option value="12" data-i18n-option="method_france">France (UOIF)</option>
+                    </select>
                 </div>
             </div>
 
