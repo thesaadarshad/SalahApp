@@ -49,6 +49,7 @@ const App = {
     translations: {
         en: {
             timeUntil: 'Time until',
+            prayerTimesLabel: 'Prayer times',
             todaysPrayerTimes: "Today's Prayer Times",
             hours: 'hours',
             minutes: 'minutes',
@@ -104,6 +105,7 @@ const App = {
         },
         ur: {
             timeUntil: 'نماز تک وقت',
+            prayerTimesLabel: 'نماز کے اوقات',
             todaysPrayerTimes: 'آج کی نماز کے اوقات',
             hours: 'گھنٹے',
             minutes: 'منٹ',
@@ -159,6 +161,7 @@ const App = {
         },
         ar: {
             timeUntil: 'الوقت المتبقي حتى',
+            prayerTimesLabel: 'مواقيت الصلاة',
             todaysPrayerTimes: 'مواقيت الصلاة اليوم',
             hours: 'ساعات',
             minutes: 'دقائق',
@@ -214,6 +217,7 @@ const App = {
         },
         hi: {
             timeUntil: 'नमाज़ तक समय',
+            prayerTimesLabel: 'नमाज़ का समय',
             todaysPrayerTimes: 'आज की नमाज़ का समय',
             hours: 'घंटे',
             minutes: 'मिनट',
@@ -269,6 +273,7 @@ const App = {
         },
         tr: {
             timeUntil: 'Kalan süre',
+            prayerTimesLabel: 'Namaz Vakitleri',
             todaysPrayerTimes: "Bugünün Namaz Vakitleri",
             hours: 'saat',
             minutes: 'dakika',
@@ -324,6 +329,7 @@ const App = {
         },
         id: {
             timeUntil: 'Waktu tersisa',
+            prayerTimesLabel: 'Waktu Shalat',
             todaysPrayerTimes: 'Waktu Shalat Hari Ini',
             hours: 'jam',
             minutes: 'menit',
@@ -379,6 +385,7 @@ const App = {
         },
         fa: {
             timeUntil: 'زمان باقی‌مانده تا',
+            prayerTimesLabel: 'اوقات نماز',
             todaysPrayerTimes: 'اوقات نماز امروز',
             hours: 'ساعت',
             minutes: 'دقیقه',
@@ -434,6 +441,7 @@ const App = {
         },
         fr: {
             timeUntil: 'Temps restant',
+            prayerTimesLabel: 'Horaires de prière',
             todaysPrayerTimes: "Horaires de Prière d'Aujourd'hui",
             hours: 'heures',
             minutes: 'minutes',
@@ -489,6 +497,7 @@ const App = {
         },
         bn: {
             timeUntil: 'বাকি সময়',
+            prayerTimesLabel: 'নামাজের সময়',
             todaysPrayerTimes: 'আজকের নামাজের সময়',
             hours: 'ঘণ্টা',
             minutes: 'মিনিট',
@@ -557,6 +566,7 @@ const App = {
         this.initLocationModal();
         this.initCalculationMethod();
         this.initOptionalPrayersToggle();
+        this.updateCurrentTime();
         this.showLoading();
         
         // Check if user has saved location preference
@@ -567,6 +577,27 @@ const App = {
             // Use automatic fallback location (IP/timezone) - don't prompt for GPS
             this.useFallbackLocation();
         }
+    },
+
+    // Update current time display
+    updateCurrentTime() {
+        const updateTime = () => {
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const timeString = `${hours}:${minutes}`;
+            
+            const currentTimeElement = document.getElementById('current-time');
+            if (currentTimeElement) {
+                currentTimeElement.textContent = timeString;
+            }
+        };
+        
+        // Update immediately
+        updateTime();
+        
+        // Update every minute
+        setInterval(updateTime, 60000);
     },
 
     // Initialize language
@@ -1369,6 +1400,13 @@ const App = {
             }
         }
         document.getElementById('location-name').textContent = locationName;
+
+        // Update location address
+        const locationAddress = document.getElementById('location-address');
+        if (locationAddress) {
+            // For now, show timezone or leave empty for future address implementation
+            locationAddress.textContent = meta.timezone || '';
+        }
 
         // Update nearby mosque link with coordinates
         this.updateMosqueLink(meta.latitude, meta.longitude);

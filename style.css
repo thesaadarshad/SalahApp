@@ -966,27 +966,13 @@ body.dark-mode .method-dropdown:hover {
 }
 
 /* Location */
-.location {
-    text-align: center;
-    margin-bottom: var(--space-lg);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: var(--space-sm);
-}
-
-.location-display {
-    color: rgba(255, 255, 255, 0.85);
-    font-size: var(--text-xs);
-    font-weight: 500;
-    letter-spacing: 0.01em;
-}
-
+/* Location Actions */
 .location-actions {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: var(--space-xs);
+    margin-bottom: var(--space-xl);
 }
 
 .location-action-btn {
@@ -1034,6 +1020,46 @@ body[dir="rtl"] .location-actions {
     display: flex;
     flex-direction: column;
     justify-content: center;
+}
+
+/* Current Time Display */
+.current-time-display {
+    font-size: var(--text-2xl);
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: var(--space-md);
+    letter-spacing: 0.02em;
+}
+
+/* Prayer Times Label */
+.prayer-times-label {
+    font-size: var(--text-sm);
+    color: var(--text-primary);
+    opacity: 0.8;
+    margin-bottom: var(--space-sm);
+    font-weight: 400;
+}
+
+/* Location Info */
+.location-info {
+    text-align: center;
+    margin-bottom: var(--space-md);
+}
+
+.location-name {
+    font-size: var(--text-xl);
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0 0 var(--space-xs) 0;
+    letter-spacing: 0.01em;
+}
+
+.location-address {
+    font-size: var(--text-sm);
+    color: var(--text-primary);
+    opacity: 0.7;
+    margin: 0;
+    font-weight: 400;
 }
 
 .next-prayer-label {
