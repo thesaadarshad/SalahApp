@@ -1312,7 +1312,7 @@ const App = {
         setTimeout(() => {
             const locationDisplay = document.querySelector('#location-name');
             if (locationDisplay && cityName) {
-                locationDisplay.textContent = `📍 ${cityName} (approximate)`;
+                locationDisplay.textContent = `${cityName} (approximate)`;
                 locationDisplay.style.opacity = '0.8';
             }
         }, 100);
