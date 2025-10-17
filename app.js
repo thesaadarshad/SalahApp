@@ -1533,7 +1533,8 @@ const App = {
         if (grid) grid.style.display = 'none';
         
         try {
-            const response = await fetch('https://api.aladhan.com/v1/asmaAlHusna');
+            // Load from local JSON file (static data)
+            const response = await fetch('data/99-names.json');
             const data = await response.json();
             
             if (data.code === 200) {
@@ -1542,7 +1543,7 @@ const App = {
                 if (grid) grid.style.display = 'grid';
             }
         } catch (error) {
-            console.error('Error fetching 99 names:', error);
+            console.error('Error loading 99 names:', error);
             if (loading) {
                 loading.innerHTML = '<p style="color: var(--text-light);">Failed to load names. Please try again.</p>';
             }
