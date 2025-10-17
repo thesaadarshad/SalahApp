@@ -8,8 +8,29 @@ const App = {
     locationMode: 'auto', // 'auto' or 'manual'
     savedLocation: null,
     calculationMethod: 2, // Default: ISNA (2), Jafari (0)
+    school: 1, // Default: Hanafi (1), Shafi (0)
     dateConverterInitialized: false,
     showOptionalPrayers: false, // Toggle for optional prayer times
+
+    // Method names mapping (for display)
+    methodNames: {
+        0: 'Jafari / Shia Ithna-Ashari ',
+        1: 'University of Islamic Sciences, Karachi ',
+        2: 'Islamic Society of North America - ISNA',
+        3: 'Muslim World League',
+        4: 'Umm Al-Qura University, Makkah ',
+        5: 'Egyptian General Authority of Survey ',
+        7: 'Institute of Geophysics, University of Tehran ',
+        8: 'Gulf Region',
+        11: 'Singapore',
+        12: 'France',
+        13: 'Turkey'
+    },
+
+    schoolNames: {
+        0: 'Shafi',
+        1: 'Hanafi'
+    },
 
     // Prayer configurations
     prayers: [
@@ -60,6 +81,15 @@ const App = {
             method_turkey: 'Turkey',
             method_singapore: 'Singapore',
             method_france: 'France (UOIF)',
+            settings: 'Settings',
+            calculationMethod: 'Calculation Method',
+            calculationMethodDesc: 'Choose the method for prayer time calculations',
+            asrCalculation: 'Asr Calculation Method',
+            asrCalculationDesc: 'Choose the juristic method for Asr prayer time',
+            schoolShafi: 'Shafi, Maliki, Hanbali',
+            schoolHanafi: 'Hanafi',
+            basedOn: 'Based on:',
+            change: 'change',
             prayers: {
                 Imsak: 'Imsak',
                 Fajr: 'Fajr',
@@ -106,6 +136,15 @@ const App = {
             method_turkey: 'ترکی',
             method_singapore: 'سنگاپور',
             method_france: 'فرانس',
+            settings: 'ترتیبات',
+            calculationMethod: 'حساب کا طریقہ',
+            calculationMethodDesc: 'نماز کے اوقات کے حساب کے لیے طریقہ منتخب کریں',
+            asrCalculation: 'عصر کا حساب',
+            asrCalculationDesc: 'عصر کی نماز کے لیے فقہی طریقہ منتخب کریں',
+            schoolShafi: 'شافعی، مالکی، حنبلی',
+            schoolHanafi: 'حنفی',
+            basedOn: 'بنیاد:',
+            change: 'تبدیل',
             prayers: {
                 Imsak: 'امساک',
                 Fajr: 'فجر',
@@ -152,6 +191,15 @@ const App = {
             method_turkey: 'تركيا',
             method_singapore: 'سنغافورة',
             method_france: 'فرنسا',
+            settings: 'الإعدادات',
+            calculationMethod: 'طريقة الحساب',
+            calculationMethodDesc: 'اختر الطريقة لحساب أوقات الصلاة',
+            asrCalculation: 'طريقة حساب العصر',
+            asrCalculationDesc: 'اختر الطريقة الفقهية لوقت صلاة العصر',
+            schoolShafi: 'الشافعي، المالكي، الحنبلي',
+            schoolHanafi: 'الحنفي',
+            basedOn: 'بناءً على:',
+            change: 'تغيير',
             prayers: {
                 Imsak: 'الإمساك',
                 Fajr: 'الفجر',
@@ -198,6 +246,15 @@ const App = {
             method_turkey: 'तुर्की',
             method_singapore: 'सिंगापुर',
             method_france: 'फ्रांस',
+            settings: 'सेटिंग्स',
+            calculationMethod: 'गणना विधि',
+            calculationMethodDesc: 'नमाज़ के समय की गणना के लिए विधि चुनें',
+            asrCalculation: 'असर गणना विधि',
+            asrCalculationDesc: 'असर नमाज़ के समय के लिए विधि चुनें',
+            schoolShafi: 'शफी, मालिकी, हनबली',
+            schoolHanafi: 'हनफी',
+            basedOn: 'आधारित:',
+            change: 'बदलें',
             prayers: {
                 Imsak: 'इमसाक',
                 Fajr: 'फ़ज्र',
@@ -244,6 +301,15 @@ const App = {
             method_turkey: 'Türkiye Diyanet',
             method_singapore: 'Singapur',
             method_france: 'Fransa',
+            settings: 'Ayarlar',
+            calculationMethod: 'Hesaplama Yöntemi',
+            calculationMethodDesc: 'Namaz vakitleri hesaplama yöntemini seçin',
+            asrCalculation: 'İkindi Hesaplama',
+            asrCalculationDesc: 'İkindi namazı için fıkhi yöntemi seçin',
+            schoolShafi: 'Şafii, Maliki, Hanbeli',
+            schoolHanafi: 'Hanefi',
+            basedOn: 'Temel:',
+            change: 'değiştir',
             prayers: {
                 Imsak: 'İmsak',
                 Fajr: 'Sabah',
@@ -290,6 +356,15 @@ const App = {
             method_turkey: 'Turki',
             method_singapore: 'Singapura',
             method_france: 'Prancis',
+            settings: 'Pengaturan',
+            calculationMethod: 'Metode Perhitungan',
+            calculationMethodDesc: 'Pilih metode untuk perhitungan waktu shalat',
+            asrCalculation: 'Metode Ashar',
+            asrCalculationDesc: 'Pilih metode fikih untuk waktu shalat Ashar',
+            schoolShafi: 'Syafi\'i, Maliki, Hanbali',
+            schoolHanafi: 'Hanafi',
+            basedOn: 'Berdasarkan:',
+            change: 'ubah',
             prayers: {
                 Imsak: 'Imsak',
                 Fajr: 'Subuh',
@@ -336,6 +411,15 @@ const App = {
             method_turkey: 'ترکیه',
             method_singapore: 'سنگاپور',
             method_france: 'فرانسه',
+            settings: 'تنظیمات',
+            calculationMethod: 'روش محاسبه',
+            calculationMethodDesc: 'روش محاسبه اوقات نماز را انتخاب کنید',
+            asrCalculation: 'روش محاسبه عصر',
+            asrCalculationDesc: 'روش فقهی برای نماز عصر را انتخاب کنید',
+            schoolShafi: 'شافعی، مالکی، حنبلی',
+            schoolHanafi: 'حنفی',
+            basedOn: 'بر اساس:',
+            change: 'تغییر',
             prayers: {
                 Imsak: 'امساک',
                 Fajr: 'صبح',
@@ -382,6 +466,15 @@ const App = {
             method_turkey: 'Turquie',
             method_singapore: 'Singapour',
             method_france: 'France (UOIF)',
+            settings: 'Paramètres',
+            calculationMethod: 'Méthode de Calcul',
+            calculationMethodDesc: 'Choisissez la méthode pour le calcul des heures de prière',
+            asrCalculation: 'Méthode Asr',
+            asrCalculationDesc: 'Choisissez la méthode juridique pour l\'heure de la prière Asr',
+            schoolShafi: 'Chafi\'i, Maliki, Hanbali',
+            schoolHanafi: 'Hanafi',
+            basedOn: 'Basé sur:',
+            change: 'modifier',
             prayers: {
                 Imsak: 'Imsak',
                 Fajr: 'Fajr',
@@ -428,6 +521,15 @@ const App = {
             method_turkey: 'তুরস্ক',
             method_singapore: 'সিঙ্গাপুর',
             method_france: 'ফ্রান্স',
+            settings: 'সেটিংস',
+            calculationMethod: 'গণনা পদ্ধতি',
+            calculationMethodDesc: 'নামাজের সময় গণনার পদ্ধতি নির্বাচন করুন',
+            asrCalculation: 'আসর গণনা পদ্ধতি',
+            asrCalculationDesc: 'আসর নামাজের জন্য ফিকহি পদ্ধতি নির্বাচন করুন',
+            schoolShafi: 'শাফেয়ী, মালিকী, হাম্বলী',
+            schoolHanafi: 'হানাফী',
+            basedOn: 'ভিত্তি:',
+            change: 'পরিবর্তন',
             prayers: {
                 Imsak: 'ইমসাক',
                 Fajr: 'ফজর',
@@ -447,10 +549,12 @@ const App = {
         this.currentLang = localStorage.getItem('language') || 'en';
         this.savedLocation = JSON.parse(localStorage.getItem('savedLocation'));
         this.calculationMethod = parseInt(localStorage.getItem('calculationMethod')) || 2;
+        this.school = parseInt(localStorage.getItem('school')) || 1; // Default: Hanafi
         this.showOptionalPrayers = localStorage.getItem('showOptionalPrayers') === 'true';
         this.initNavigation();
         this.initTheme();
         this.initLanguage();
+        this.initSettings();
         this.initLocationModal();
         this.initCalculationMethod();
         this.initOptionalPrayersToggle();
@@ -597,6 +701,22 @@ const App = {
         const optionalToggleLabel = document.querySelector('.optional-toggle-label');
         if (optionalToggleLabel) optionalToggleLabel.textContent = t.showOptionalTimes;
         
+        // Update settings modal
+        const settingsTitle = document.querySelector('.settings-title');
+        if (settingsTitle) settingsTitle.textContent = t.settings;
+        
+        const settingLabels = document.querySelectorAll('.setting-label');
+        if (settingLabels[0]) settingLabels[0].textContent = t.calculationMethod;
+        if (settingLabels[1]) settingLabels[1].textContent = t.asrCalculation;
+        
+        const settingDescs = document.querySelectorAll('.setting-description');
+        if (settingDescs[0]) settingDescs[0].textContent = t.calculationMethodDesc;
+        if (settingDescs[1]) settingDescs[1].textContent = t.asrCalculationDesc;
+        
+        const schoolNames = document.querySelectorAll('.radio-name');
+        if (schoolNames[0]) schoolNames[0].textContent = t.schoolShafi;
+        if (schoolNames[1]) schoolNames[1].textContent = t.schoolHanafi;
+        
         // Redisplay prayer times if loaded
         if (this.prayerData) {
             this.displayPrayerTimes();
@@ -709,6 +829,106 @@ const App = {
         localStorage.setItem('theme', theme);
     },
 
+    // Initialize settings modal
+    initSettings() {
+        const settingsToggle = document.getElementById('settings-toggle');
+        const settingsModal = document.getElementById('settings-modal');
+        const settingsOverlay = document.getElementById('settings-overlay');
+        const settingsClose = document.getElementById('settings-close');
+        const schoolRadios = document.querySelectorAll('input[name="school"]');
+
+        // Set initial radio button state
+        schoolRadios.forEach(radio => {
+            if (parseInt(radio.value) === this.school) {
+                radio.checked = true;
+            }
+
+            // Add change event listener
+            radio.addEventListener('change', () => {
+                const newSchool = parseInt(radio.value);
+                if (newSchool !== this.school) {
+                    this.switchSchool(newSchool);
+                }
+            });
+        });
+
+        // Open settings modal
+        const openSettings = (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            settingsModal.classList.add('active');
+            settingsOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        };
+
+        if (settingsToggle) {
+            settingsToggle.addEventListener('click', openSettings);
+        }
+
+        // Settings change link handler
+        const settingsChangeLink = document.getElementById('settings-change-link');
+        if (settingsChangeLink) {
+            settingsChangeLink.addEventListener('click', openSettings);
+        }
+
+        // Close settings modal
+        const closeSettings = () => {
+            settingsModal.classList.remove('active');
+            settingsOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        };
+
+        if (settingsClose) {
+            settingsClose.addEventListener('click', closeSettings);
+        }
+
+        if (settingsOverlay) {
+            settingsOverlay.addEventListener('click', closeSettings);
+        }
+    },
+
+    // Switch school (Asr calculation method)
+    switchSchool(school) {
+        if (this.school === school) return;
+        
+        this.school = school;
+        localStorage.setItem('school', school);
+        
+        // Update settings indicator
+        this.updateSettingsIndicator();
+        
+        // Stop the current countdown
+        if (this.countdownInterval) {
+            clearInterval(this.countdownInterval);
+            this.countdownInterval = null;
+        }
+        
+        // Store location data
+        const latitude = this.prayerData?.meta?.latitude;
+        const longitude = this.prayerData?.meta?.longitude;
+        
+        // Reload prayer times with new school
+        this.showLoading();
+        if (this.locationMode === 'manual' && this.savedLocation) {
+            this.fetchPrayerTimesByCity(this.savedLocation.city, this.savedLocation.country);
+        } else if (latitude && longitude) {
+            this.fetchPrayerTimes(latitude, longitude);
+        }
+    },
+
+    // Update settings indicator
+    updateSettingsIndicator() {
+        const currentMethod = document.getElementById('current-method');
+        const currentSchool = document.getElementById('current-school');
+        
+        if (currentMethod) {
+            currentMethod.textContent = this.methodNames[this.calculationMethod] || 'ISNA';
+        }
+        if (currentSchool) {
+            currentSchool.textContent = this.schoolNames[this.school] || 'Hanafi';
+        }
+    },
+
     // Initialize calculation method
     initCalculationMethod() {
         const methodDropdown = document.getElementById('calculation-method');
@@ -733,6 +953,9 @@ const App = {
         // Update dropdown value
         const methodDropdown = document.getElementById('calculation-method');
         methodDropdown.value = method;
+        
+        // Update settings indicator
+        this.updateSettingsIndicator();
         
         // Stop the current countdown to prevent showing incorrect times
         if (this.countdownInterval) {
@@ -1095,7 +1318,7 @@ const App = {
     async fetchPrayerTimes(latitude, longitude) {
         try {
             const timestamp = Math.floor(Date.now() / 1000);
-            const url = `https://api.aladhan.com/v1/timings/${timestamp}?latitude=${latitude}&longitude=${longitude}&method=${this.calculationMethod}`;
+            const url = `https://api.aladhan.com/v1/timings/${timestamp}?latitude=${latitude}&longitude=${longitude}&method=${this.calculationMethod}&school=${this.school}`;
 
             // Force fresh fetch (bypass cache)
             const response = await fetch(url, { cache: 'no-store' });
@@ -1124,7 +1347,7 @@ const App = {
     // Fetch prayer times by city name
     async fetchPrayerTimesByCity(city, country) {
         try {
-            const url = `https://api.aladhan.com/v1/timingsByCity?city=${encodeURIComponent(city)}&country=${encodeURIComponent(country)}&method=${this.calculationMethod}`;
+            const url = `https://api.aladhan.com/v1/timingsByCity?city=${encodeURIComponent(city)}&country=${encodeURIComponent(country)}&method=${this.calculationMethod}&school=${this.school}`;
 
             // Force fresh fetch (bypass cache)
             const response = await fetch(url, { cache: 'no-store' });
@@ -1218,6 +1441,9 @@ const App = {
 
             gridContainer.appendChild(card);
         });
+
+        // Update settings indicator
+        this.updateSettingsIndicator();
     },
 
     // Update nearby mosque link

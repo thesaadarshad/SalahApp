@@ -34,12 +34,14 @@
 <body>
     <!-- Theme Toggle Button -->
     <button id="theme-toggle" class="control-btn theme-toggle" aria-label="Toggle theme" title="Toggle theme">
-        <span class="control-icon">🌙</span>
     </button>
 
     <!-- Language Toggle Button -->
     <button id="language-toggle" class="control-btn language-toggle" aria-label="Change language" title="Change language">
-        <span class="control-icon">🌐</span>
+    </button>
+
+    <!-- Settings Toggle Button -->
+    <button id="settings-toggle" class="control-btn settings-toggle" aria-label="Settings" title="Settings">
     </button>
 
     <!-- Language Dropdown Menu -->
@@ -81,6 +83,54 @@
             <span class="lang-name">हिन्दी</span>
         </button>
     </div>
+
+    <!-- Settings Modal -->
+    <div class="settings-modal" id="settings-modal">
+        <div class="settings-content">
+            <div class="settings-header">
+                <h3 class="settings-title" data-i18n="settings">Settings</h3>
+                <button class="settings-close" id="settings-close" aria-label="Close settings">×</button>
+            </div>
+            <div class="settings-body">
+                <div class="setting-group">
+                    <label class="setting-label" data-i18n="calculationMethod">Calculation Method</label>
+                    <p class="setting-description" data-i18n="calculationMethodDesc">Choose the method for prayer time calculations</p>
+                    <select id="calculation-method" class="method-dropdown">
+                        <option value="3" data-i18n-option="method_mwl">Muslim World League</option>
+                        <option value="2" data-i18n-option="method_isna">ISNA (North America)</option>
+                        <option value="4" data-i18n-option="method_ummalqura">Umm Al-Qura (Makkah)</option>
+                        <option value="5" data-i18n-option="method_egyptian">Egyptian</option>
+                        <option value="1" data-i18n-option="method_karachi">University of Karachi</option>
+                        <option value="0" data-i18n-option="method_jafari">Jafari (Shia)</option>
+                        <option value="7" data-i18n-option="method_tehran">Tehran</option>
+                        <option value="8" data-i18n-option="method_gulf">Gulf Region</option>
+                        <option value="13" data-i18n-option="method_turkey">Turkey</option>
+                        <option value="11" data-i18n-option="method_singapore">Singapore</option>
+                        <option value="12" data-i18n-option="method_france">France (UOIF)</option>
+                    </select>
+                </div>
+                <div class="setting-group">
+                    <label class="setting-label" data-i18n="asrCalculation">School of Thought</label>
+                    <!-- <p class="setting-description" data-i18n="asrCalculationDesc">Choose the juristic method for Asr prayer time</p> -->
+                    <div class="radio-group">
+                        <label class="radio-option">
+                            <input type="radio" name="school" value="0" class="radio-input">
+                            <span class="radio-label">
+                                <span class="radio-name" data-i18n="schoolShafi">Shafi, Maliki, Hanbali</span>
+                            </span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="school" value="1" class="radio-input" checked>
+                            <span class="radio-label">
+                                <span class="radio-name" data-i18n="schoolHanafi">Hanafi</span>
+                            </span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="settings-overlay" id="settings-overlay"></div>
 
     <!-- Desktop Header Navigation -->
     <header class="header-nav">
@@ -185,22 +235,6 @@
                     <span class="date-separator-header">•</span>
                     <span id="hijri-date-header"></span>
                 </div>
-                <div class="calculation-method-selector">
-                    <label for="calculation-method" class="method-label" data-i18n="calculationMethod">Calculation Method</label>
-                    <select id="calculation-method" class="method-dropdown">
-                        <option value="3" data-i18n-option="method_mwl">Muslim World League</option>
-                        <option value="2" data-i18n-option="method_isna">ISNA (North America)</option>
-                        <option value="4" data-i18n-option="method_ummalqura">Umm Al-Qura (Makkah)</option>
-                        <option value="5" data-i18n-option="method_egyptian">Egyptian</option>
-                        <option value="1" data-i18n-option="method_karachi">University of Karachi</option>
-                        <option value="0" data-i18n-option="method_jafari">Jafari (Shia)</option>
-                        <option value="7" data-i18n-option="method_tehran">Tehran</option>
-                        <option value="8" data-i18n-option="method_gulf">Gulf Region</option>
-                        <option value="13" data-i18n-option="method_turkey">Turkey</option>
-                        <option value="11" data-i18n-option="method_singapore">Singapore</option>
-                        <option value="12" data-i18n-option="method_france">France (UOIF)</option>
-                    </select>
-                </div>
             </div>
 
             <!-- Next Prayer Countdown -->
@@ -242,6 +276,11 @@
                             <span class="time-label">seconds</span>
                         </div>
                     </div>
+                    <p class="settings-indicator" id="settings-indicator">
+                        <span class="settings-pretext" data-i18n="basedOn">Based on:</span> 
+                        <span id="current-method">ISNA</span> • <span id="current-school">Hanafi</span> 
+                        <a href="#" class="settings-change-link" id="settings-change-link" data-i18n="change">change</a>
+                    </p>
                 </div>
             </div>
 
