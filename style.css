@@ -59,10 +59,11 @@ body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    background: linear-gradient(135deg, rgba(26, 107, 94, 0.96) 0%, rgba(21, 90, 79, 0.96) 100%), url('arabesque-bg.svg');
-    background-size: 300px 300px;
+    background-color: #1a6b5e;
+    background-image: url('arabesque-bg.svg');
+    background-size: auto;
     background-repeat: repeat;
-    background-position: center;
+    background-position: 0 0;
     background-attachment: fixed;
     color: var(--text-primary);
     line-height: 1.6;
