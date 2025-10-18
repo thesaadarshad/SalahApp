@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aga Arabesque Font Typography Test</title>
+    <style>
+        @font-face {
+            font-family: 'Aga Arabesque';
+            src: url('AgaArabesque-pwBr.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background-color: rgb(0, 103, 71);
+            background-image: url('arabesque-bg.svg');
+            background-size: auto;
+            background-repeat: repeat;
+            background-position: 0 0;
+            color: #FFFFFF;
+            padding: 2rem;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 3rem;
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            text-align: center;
+            color: #FFFFFF;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 3rem;
+            font-size: 1.1rem;
+        }
+        
+        .section {
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+        }
+        
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: rgba(255, 255, 255, 0.9);
+            border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+            padding-bottom: 0.5rem;
+        }
+        
+        .aga-font {
+            font-family: 'Aga Arabesque', serif;
+        }
+        
+        .char-showcase {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+        
+        .char-box {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1rem;
+            border-radius: 4px;
+            text-align: center;
+            font-family: 'Aga Arabesque', serif;
+            font-size: 2rem;
+        }
+        
+        .char-label {
+            font-size: 0.7rem;
+            color: rgba(255, 255, 255, 0.6);
+            margin-top: 0.5rem;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .prayer-names {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            margin: 1.5rem 0;
+        }
+        
+        .prayer-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            font-size: 3rem;
+        }
+        
+        .bracket {
+            font-family: 'Aga Arabesque', serif;
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        .prayer-name {
+            font-weight: 600;
+            letter-spacing: 0.05em;
+        }
+        
+        .sizes {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+        
+        .size-demo {
+            font-family: 'Aga Arabesque', serif;
+            text-align: center;
+        }
+        
+        .size-label {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.5);
+            margin-bottom: 0.5rem;
+        }
+        
+        .sentence {
+            font-family: 'Aga Arabesque', serif;
+            font-size: 1.8rem;
+            line-height: 1.8;
+            text-align: center;
+            margin: 1.5rem 0;
+            color: rgba(255, 255, 255, 0.9);
+        }
+        
+        .combined {
+            font-size: 2.5rem;
+            text-align: center;
+            margin: 1.5rem 0;
+        }
+        
+        .combined .aga {
+            font-family: 'Aga Arabesque', serif;
+        }
+        
+        .combined .regular {
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Aga Arabesque Font Typography</h1>
+        <p class="subtitle">Testing decorative font for prayer time brackets</p>
+        
+        <!-- Prayer Names with Brackets -->
+        <div class="section">
+            <h2 class="section-title">Prayer Names with Decorative Brackets</h2>
+            <div class="prayer-names">
+                <div class="prayer-item">
+                    <span class="bracket">(</span>
+                    <span class="prayer-name">FAJR</span>
+                    <span class="bracket">)</span>
+                </div>
+                <div class="prayer-item">
+                    <span class="bracket">(</span>
+                    <span class="prayer-name">DHUHR</span>
+                    <span class="bracket">)</span>
+                </div>
+                <div class="prayer-item">
+                    <span class="bracket">(</span>
+                    <span class="prayer-name">ASR</span>
+                    <span class="bracket">)</span>
+                </div>
+                <div class="prayer-item">
+                    <span class="bracket">(</span>
+                    <span class="prayer-name">MAGHRIB</span>
+                    <span class="bracket">)</span>
+                </div>
+                <div class="prayer-item">
+                    <span class="bracket">(</span>
+                    <span class="prayer-name">ISHA</span>
+                    <span class="bracket">)</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Character Showcase -->
+        <div class="section">
+            <h2 class="section-title">Character Set</h2>
+            <div class="char-showcase">
+                <div class="char-box">
+                    (<div class="char-label">Left Paren</div>
+                </div>
+                <div class="char-box">
+                    )<div class="char-label">Right Paren</div>
+                </div>
+                <div class="char-box">
+                    [<div class="char-label">Left Bracket</div>
+                </div>
+                <div class="char-box">
+                    ]<div class="char-label">Right Bracket</div>
+                </div>
+                <div class="char-box">
+                    {<div class="char-label">Left Brace</div>
+                </div>
+                <div class="char-box">
+                    }<div class="char-label">Right Brace</div>
+                </div>
+                <div class="char-box">
+                    ⟨<div class="char-label">Angle L</div>
+                </div>
+                <div class="char-box">
+                    ⟩<div class="char-label">Angle R</div>
+                </div>
+                <div class="char-box">
+                    «<div class="char-label">Guillemet L</div>
+                </div>
+                <div class="char-box">
+                    »<div class="char-label">Guillemet R</div>
+                </div>
+                <div class="char-box">
+                    •<div class="char-label">Bullet</div>
+                </div>
+                <div class="char-box">
+                    ·<div class="char-label">Mid Dot</div>
+                </div>
+                <div class="char-box">
+                    ◆<div class="char-label">Diamond</div>
+                </div>
+                <div class="char-box">
+                    ★<div class="char-label">Star</div>
+                </div>
+                <div class="char-box">
+                    ☪<div class="char-label">Star/Cres</div>
+                </div>
+                <div class="char-box">
+                    ♦<div class="char-label">Diamond</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Numbers -->
+        <div class="section">
+            <h2 class="section-title">Numbers</h2>
+            <div class="char-showcase">
+                <div class="char-box">0<div class="char-label">Zero</div></div>
+                <div class="char-box">1<div class="char-label">One</div></div>
+                <div class="char-box">2<div class="char-label">Two</div></div>
+                <div class="char-box">3<div class="char-label">Three</div></div>
+                <div class="char-box">4<div class="char-label">Four</div></div>
+                <div class="char-box">5<div class="char-label">Five</div></div>
+                <div class="char-box">6<div class="char-label">Six</div></div>
+                <div class="char-box">7<div class="char-label">Seven</div></div>
+                <div class="char-box">8<div class="char-label">Eight</div></div>
+                <div class="char-box">9<div class="char-label">Nine</div></div>
+            </div>
+        </div>
+        
+        <!-- Uppercase Letters -->
+        <div class="section">
+            <h2 class="section-title">Uppercase Letters</h2>
+            <div class="char-showcase">
+                <div class="char-box">A</div>
+                <div class="char-box">B</div>
+                <div class="char-box">C</div>
+                <div class="char-box">D</div>
+                <div class="char-box">E</div>
+                <div class="char-box">F</div>
+                <div class="char-box">G</div>
+                <div class="char-box">H</div>
+                <div class="char-box">I</div>
+                <div class="char-box">J</div>
+                <div class="char-box">K</div>
+                <div class="char-box">L</div>
+                <div class="char-box">M</div>
+                <div class="char-box">N</div>
+                <div class="char-box">O</div>
+                <div class="char-box">P</div>
+                <div class="char-box">Q</div>
+                <div class="char-box">R</div>
+                <div class="char-box">S</div>
+                <div class="char-box">T</div>
+                <div class="char-box">U</div>
+                <div class="char-box">V</div>
+                <div class="char-box">W</div>
+                <div class="char-box">X</div>
+                <div class="char-box">Y</div>
+                <div class="char-box">Z</div>
+            </div>
+        </div>
+        
+        <!-- Lowercase Letters -->
+        <div class="section">
+            <h2 class="section-title">Lowercase Letters</h2>
+            <div class="char-showcase">
+                <div class="char-box">a</div>
+                <div class="char-box">b</div>
+                <div class="char-box">c</div>
+                <div class="char-box">d</div>
+                <div class="char-box">e</div>
+                <div class="char-box">f</div>
+                <div class="char-box">g</div>
+                <div class="char-box">h</div>
+                <div class="char-box">i</div>
+                <div class="char-box">j</div>
+                <div class="char-box">k</div>
+                <div class="char-box">l</div>
+                <div class="char-box">m</div>
+                <div class="char-box">n</div>
+                <div class="char-box">o</div>
+                <div class="char-box">p</div>
+                <div class="char-box">q</div>
+                <div class="char-box">r</div>
+                <div class="char-box">s</div>
+                <div class="char-box">t</div>
+                <div class="char-box">u</div>
+                <div class="char-box">v</div>
+                <div class="char-box">w</div>
+                <div class="char-box">x</div>
+                <div class="char-box">y</div>
+                <div class="char-box">z</div>
+            </div>
+        </div>
+        
+        <!-- Different Sizes -->
+        <div class="section">
+            <h2 class="section-title">Size Variations</h2>
+            <div class="sizes">
+                <div class="size-demo">
+                    <div class="size-label">Small (1rem)</div>
+                    <div style="font-size: 1rem;">( Subhan Allah )</div>
+                </div>
+                <div class="size-demo">
+                    <div class="size-label">Medium (2rem)</div>
+                    <div style="font-size: 2rem;">( Alhamdulillah )</div>
+                </div>
+                <div class="size-demo">
+                    <div class="size-label">Large (3rem)</div>
+                    <div style="font-size: 3rem;">( Allahu Akbar )</div>
+                </div>
+                <div class="size-demo">
+                    <div class="size-label">Extra Large (4rem)</div>
+                    <div style="font-size: 4rem;">( La ilaha illallah )</div>
+                </div>
+                <div class="size-demo">
+                    <div class="size-label">XXL (5rem)</div>
+                    <div style="font-size: 5rem;">( ☪ )</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Sentences -->
+        <div class="section">
+            <h2 class="section-title">Sentences & Phrases</h2>
+            <div class="sentence">
+                ( In the name of Allah, the Most Gracious, the Most Merciful )
+            </div>
+            <div class="sentence">
+                [ Verily, with hardship comes ease ]
+            </div>
+            <div class="sentence">
+                { Prayer is the key to Paradise }
+            </div>
+            <div class="sentence">
+                « Allah is sufficient for us » and « He is the best Disposer of affairs »
+            </div>
+        </div>
+        
+        <!-- Combined with Regular Font -->
+        <div class="section">
+            <h2 class="section-title">Combined Usage (Aga + Inter)</h2>
+            <div class="combined">
+                <span class="aga">(</span>
+                <span class="regular">FAJR</span>
+                <span class="aga">)</span>
+            </div>
+            <div class="combined">
+                <span class="aga">(</span>
+                <span class="regular">DHUHR</span>
+                <span class="aga">)</span>
+            </div>
+            <div class="combined">
+                <span class="aga">(</span>
+                <span class="regular">ASR</span>
+                <span class="aga">)</span>
+            </div>
+            <div class="combined">
+                <span class="aga">(</span>
+                <span class="regular">MAGHRIB</span>
+                <span class="aga">)</span>
+            </div>
+            <div class="combined">
+                <span class="aga">(</span>
+                <span class="regular">ISHA</span>
+                <span class="aga">)</span>
+            </div>
+        </div>
+        
+        <!-- Punctuation -->
+        <div class="section">
+            <h2 class="section-title">Punctuation & Special Characters</h2>
+            <div class="char-showcase">
+                <div class="char-box">.<div class="char-label">Period</div></div>
+                <div class="char-box">,<div class="char-label">Comma</div></div>
+                <div class="char-box">;<div class="char-label">Semicolon</div></div>
+                <div class="char-box">:<div class="char-label">Colon</div></div>
+                <div class="char-box">!<div class="char-label">Exclaim</div></div>
+                <div class="char-box">?<div class="char-label">Question</div></div>
+                <div class="char-box">-<div class="char-label">Hyphen</div></div>
+                <div class="char-box">–<div class="char-label">En Dash</div></div>
+                <div class="char-box">—<div class="char-label">Em Dash</div></div>
+                <div class="char-box">'<div class="char-label">Apostrophe</div></div>
+                <div class="char-box">"<div class="char-label">Quote</div></div>
+                <div class="char-box">&<div class="char-label">Ampersand</div></div>
+                <div class="char-box">@<div class="char-label">At</div></div>
+                <div class="char-box">#<div class="char-label">Hash</div></div>
+                <div class="char-box">%<div class="char-label">Percent</div></div>
+                <div class="char-box">+<div class="char-label">Plus</div></div>
+                <div class="char-box">=<div class="char-label">Equals</div></div>
+                <div class="char-box">/<div class="char-label">Slash</div></div>
+                <div class="char-box">\<div class="char-label">Backslash</div></div>
+                <div class="char-box">|<div class="char-label">Pipe</div></div>
+            </div>
+        </div>
+        
+        <!-- Islamic Phrases -->
+        <div class="section">
+            <h2 class="section-title">Islamic Phrases</h2>
+            <div style="display: flex; flex-direction: column; gap: 1.5rem; font-family: 'Aga Arabesque', serif; font-size: 1.5rem; text-align: center;">
+                <div>( Bismillah ar-Rahman ar-Rahim )</div>
+                <div>[ Alhamdulillah Rabbil Aalameen ]</div>
+                <div>{ Subhanallah wa bihamdihi }</div>
+                <div>« Allahu Akbar Kabeeran »</div>
+                <div>( La hawla wa la quwwata illa billah )</div>
+                <div>[ Astaghfirullah al-Azeem ]</div>
+                <div>{ As-salamu alaikum wa rahmatullahi wa barakatuh }</div>
+                <div>« Jazakallahu Khairan »</div>
+                <div>( Insha'Allah • Masha'Allah • Barakallah )</div>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <div style="text-align: center; margin-top: 3rem; padding-top: 2rem; border-top: 1px solid rgba(255, 255, 255, 0.2); color: rgba(255, 255, 255, 0.5); font-size: 0.9rem;">
+            <p>Aga Arabesque Font Typography Test</p>
+            <p style="margin-top: 0.5rem;">Prayer Times App • 2025</p>
+        </div>
+    </div>
+</body>
+</html>
+

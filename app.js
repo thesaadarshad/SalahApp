@@ -7,6 +7,7 @@ const App = {
     currentLang: 'en',
     locationMode: 'auto', // 'auto' or 'manual'
     savedLocation: null,
+    savedGPSLocation: null, // Store GPS coordinates
     calculationMethod: 2, // Default: ISNA (2), Jafari (0)
     school: 1, // Default: Hanafi (1), Shafi (0)
     dateConverterInitialized: false,
@@ -557,6 +558,7 @@ const App = {
     init() {
         this.currentLang = localStorage.getItem('language') || 'en';
         this.savedLocation = JSON.parse(localStorage.getItem('savedLocation'));
+        this.savedGPSLocation = JSON.parse(localStorage.getItem('savedGPSLocation'));
         this.calculationMethod = parseInt(localStorage.getItem('calculationMethod')) || 2;
         this.school = parseInt(localStorage.getItem('school')) || 1; // Default: Hanafi
         this.showOptionalPrayers = localStorage.getItem('showOptionalPrayers') === 'true';
@@ -571,10 +573,15 @@ const App = {
         
         // Check if user has saved location preference
         if (this.savedLocation) {
+            // User manually set a city/country
             this.locationMode = 'manual';
             this.fetchPrayerTimesByCity(this.savedLocation.city, this.savedLocation.country);
+        } else if (this.savedGPSLocation) {
+            // User previously shared GPS location
+            this.locationMode = 'auto';
+            this.fetchPrayerTimes(this.savedGPSLocation.latitude, this.savedGPSLocation.longitude);
         } else {
-            // Use automatic fallback location (IP/timezone) - don't prompt for GPS
+            // First time or no saved location - use automatic fallback (IP/timezone)
             this.useFallbackLocation();
         }
     },
@@ -908,8 +915,8 @@ const App = {
         }
         
         // Store location data
-        const latitude = this.prayerData?.meta?.latitude;
-        const longitude = this.prayerData?.meta?.longitude;
+        const latitude = this.prayerData?.meta?.latitude || this.savedGPSLocation?.latitude;
+        const longitude = this.prayerData?.meta?.longitude || this.savedGPSLocation?.longitude;
         
         // Reload prayer times with new school
         this.showLoading();
@@ -968,8 +975,8 @@ const App = {
         }
         
         // Store location data before clearing
-        const latitude = this.prayerData?.meta?.latitude;
-        const longitude = this.prayerData?.meta?.longitude;
+        const latitude = this.prayerData?.meta?.latitude || this.savedGPSLocation?.latitude;
+        const longitude = this.prayerData?.meta?.longitude || this.savedGPSLocation?.longitude;
         
         // DON'T clear prayerData - just update the method and refetch
         // This preserves location info until new data arrives
@@ -979,7 +986,7 @@ const App = {
         if (this.locationMode === 'manual' && this.savedLocation) {
             this.fetchPrayerTimesByCity(this.savedLocation.city, this.savedLocation.country);
         } else if (latitude && longitude) {
-            // Use stored coordinates
+            // Use stored coordinates (from savedGPSLocation or current data)
             this.fetchPrayerTimes(latitude, longitude);
         }
     },
@@ -1090,6 +1097,10 @@ const App = {
         this.locationMode = 'manual';
         localStorage.setItem('savedLocation', JSON.stringify(this.savedLocation));
         
+        // Clear saved GPS location since user manually set a location
+        this.savedGPSLocation = null;
+        localStorage.removeItem('savedGPSLocation');
+        
         this.closeLocationModal();
         this.showLoading();
         this.fetchPrayerTimesByCity(city, country);
@@ -1162,6 +1173,11 @@ const App = {
             (position) => {
                 const { latitude, longitude } = position.coords;
                 this.locationMode = 'auto';
+                
+                // Save GPS location to localStorage for future use
+                this.savedGPSLocation = { latitude, longitude };
+                localStorage.setItem('savedGPSLocation', JSON.stringify(this.savedGPSLocation));
+                
                 this.fetchPrayerTimes(latitude, longitude);
                 
                 // Update location display to show it's precise
@@ -1401,13 +1417,6 @@ const App = {
         }
         document.getElementById('location-name').textContent = locationName;
 
-        // Update location address
-        const locationAddress = document.getElementById('location-address');
-        if (locationAddress) {
-            // For now, show timezone or leave empty for future address implementation
-            locationAddress.textContent = meta.timezone || '';
-        }
-
         // Update nearby mosque link with coordinates
         this.updateMosqueLink(meta.latitude, meta.longitude);
 
@@ -1429,6 +1438,13 @@ const App = {
         if (document.getElementById('hijri-date-full')) {
             const hijriFull = `${date.hijri.weekday.ar} ${date.hijri.day} ${date.hijri.month.ar} ${date.hijri.year} ${date.hijri.designation.abbreviated}`;
             document.getElementById('hijri-date-full').textContent = hijriFull;
+        }
+        
+        // Update section title with date
+        const sectionTitle = document.getElementById('section-title');
+        if (sectionTitle) {
+            const shortDate = `${date.gregorian.month.en} ${date.gregorian.day}, ${date.gregorian.year}`;
+            sectionTitle.textContent = `Prayer Timings for ${shortDate}`;
         }
 
         // Create prayer time cards
@@ -1913,6 +1929,8 @@ window.addEventListener('online', () => {
     // Optionally refresh prayer times
     if (App.locationMode === 'manual' && App.savedLocation) {
         App.fetchPrayerTimesByCity(App.savedLocation.city, App.savedLocation.country);
+    } else if (App.savedGPSLocation) {
+        App.fetchPrayerTimes(App.savedGPSLocation.latitude, App.savedGPSLocation.longitude);
     } else {
         App.getUserLocation();
     }

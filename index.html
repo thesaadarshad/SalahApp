@@ -128,7 +128,6 @@
     <!-- Desktop Header Navigation -->
     <header class="header-nav">
         <div class="header-nav-content">
-            <h1 class="header-logo">Prayer Times</h1>
             <nav class="header-menu">
                 <a href="#" class="header-link active" data-page="prayer-times">
                     <span class="header-text">Prayer Times</span>
@@ -181,16 +180,20 @@
     <div class="container" id="prayer-times-page">
         <!-- Loading State -->
         <div id="loading" class="loading">
-            <div class="spinner"></div>
-            <p>Detecting your location...</p>
+            <div class="loading-content">
+                <div class="spinner"></div>
+                <p>Detecting your location...</p>
+            </div>
         </div>
 
         <!-- Error State -->
         <div id="error" class="error hidden">
-            <div class="error-icon">⚠️</div>
-            <h2>Unable to load prayer times</h2>
-            <p id="error-message"></p>
-            <button onclick="location.reload()" class="retry-btn">Try Again</button>
+            <div class="error-content">
+                <div class="error-icon">⚠️</div>
+                <h2>Unable to load prayer times</h2>
+                <p id="error-message"></p>
+                <button onclick="location.reload()" class="retry-btn">Try Again</button>
+            </div>
         </div>
 
         <!-- Location Modal -->
@@ -230,24 +233,22 @@
                     </div>
                 </div>
                 
-                <!-- Center Info -->
-                <div class="center-info">
-                    <h1 class="location-title" id="location-name">Islamic Centre Drogheda</h1>
-                    
-                    <!-- Hidden Action Links -->
-                    <div class="location-actions-hidden">
-                        <a href="#" class="location-link change-location-btn" id="change-location-btn">change</a>
+                <!-- Location Row in Top Bar -->
+                <div class="location-bar">
+                    <div class="location-name-small" id="location-name">Loading...</div>
+                    <div class="location-actions-inline">
+                        (<a href="#" class="location-link change-location-btn" id="change-location-btn">change</a>
                         <span class="location-separator">•</span>
-                        <a href="#" class="location-link update-location-btn" id="update-location-btn">update</a>
+                        <a href="#" class="location-link update-location-btn" id="update-location-btn">update</a>)
                     </div>
                 </div>
                 
                 <div class="countdown-wrapper">
                     <p class="next-prayer-label">Upcoming Prayer</p>
                     <div class="prayer-name-wrapper">
-                        <span class="prayer-bracket left">⟨</span>
+                        <span class="prayer-bracket left">(</span>
                         <h1 class="next-prayer-name" id="next-prayer-name">—</h1>
-                        <span class="prayer-bracket right">⟩</span>
+                        <span class="prayer-bracket right">)</span>
                     </div>
                     <div class="countdown" id="countdown">
                         <div class="time-unit">
@@ -279,7 +280,7 @@
             <!-- All Prayer Times -->
             <div class="prayer-times-section">
                 <div class="section-header">
-                    <h2 class="section-title">Today's Prayer Times</h2>
+                    <h2 class="section-title" id="section-title">Prayer Timings</h2>
                     
                     <!-- Optional Prayers Toggle -->
                     <label class="optional-toggle">
@@ -301,7 +302,7 @@
                         🕌 Find Nearby Mosque
                     </a>
                 </div>
-                <p class="footer-credit">Data provided by <a href="https://aladhan.com" target="_blank">AlAdhan API</a></p>
+                <!-- <p class="footer-credit">Data provided by <a href="https://aladhan.com" target="_blank">AlAdhan API</a></p> -->
             </div>
         </div>
     </div>
