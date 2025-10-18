@@ -32,16 +32,9 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Theme Toggle Button -->
-    <button id="theme-toggle" class="control-btn theme-toggle" aria-label="Toggle theme" title="Toggle theme">
-    </button>
-
     <!-- Language Toggle Button -->
     <button id="language-toggle" class="control-btn language-toggle" aria-label="Change language" title="Change language">
-    </button>
-
-    <!-- Settings Toggle Button -->
-    <button id="settings-toggle" class="control-btn settings-toggle" aria-label="Settings" title="Settings">
+        <span class="control-text">Language</span>
     </button>
 
     <!-- Language Dropdown Menu -->
@@ -135,18 +128,14 @@
     <!-- Desktop Header Navigation -->
     <header class="header-nav">
         <div class="header-nav-content">
-            <h1 class="header-logo">Prayer Times</h1>
             <nav class="header-menu">
                 <a href="#" class="header-link active" data-page="prayer-times">
-                    <span class="header-icon">🕌</span>
                     <span class="header-text">Prayer Times</span>
                 </a>
                 <a href="#" class="header-link" data-page="date-converter">
-                    <span class="header-icon">📅</span>
                     <span class="header-text">Hijri Converter</span>
                 </a>
                 <a href="#" class="header-link" data-page="asma-ul-husna">
-                    <span class="header-icon">✨</span>
                     <span class="header-text">99 Names</span>
                 </a>
             </nav>
@@ -169,19 +158,16 @@
         <ul class="nav-menu">
             <li class="nav-item active">
                 <a href="#" class="nav-link" data-page="prayer-times">
-                    <span class="nav-icon">🕌</span>
                     <span class="nav-text">Prayer Times</span>
                 </a>
             </li>
             <li class="nav-item">
                 <a href="#" class="nav-link" data-page="date-converter">
-                    <span class="nav-icon">📅</span>
                     <span class="nav-text">Hijri Converter</span>
                 </a>
             </li>
             <li class="nav-item">
                 <a href="#" class="nav-link" data-page="asma-ul-husna">
-                    <span class="nav-icon">✨</span>
                     <span class="nav-text">99 Names of Allah</span>
                 </a>
             </li>
@@ -194,16 +180,20 @@
     <div class="container" id="prayer-times-page">
         <!-- Loading State -->
         <div id="loading" class="loading">
-            <div class="spinner"></div>
-            <p>Detecting your location...</p>
+            <div class="loading-content">
+                <div class="spinner"></div>
+                <p>Detecting your location...</p>
+            </div>
         </div>
 
         <!-- Error State -->
         <div id="error" class="error hidden">
-            <div class="error-icon">⚠️</div>
-            <h2>Unable to load prayer times</h2>
-            <p id="error-message"></p>
-            <button onclick="location.reload()" class="retry-btn">Try Again</button>
+            <div class="error-content">
+                <div class="error-icon">⚠️</div>
+                <h2>Unable to load prayer times</h2>
+                <p id="error-message"></p>
+                <button onclick="location.reload()" class="retry-btn">Try Again</button>
+            </div>
         </div>
 
         <!-- Location Modal -->
@@ -228,37 +218,37 @@
 
         <!-- Main Content -->
         <div id="main-content" class="main-content hidden">
-            <!-- Date Header -->
-            <div class="date-header">
-                <div class="date-display">
-                    <span id="gregorian-date-header"></span>
-                    <span class="date-separator-header">•</span>
-                    <span id="hijri-date-header"></span>
-                </div>
-            </div>
-
             <!-- Next Prayer Countdown -->
             <div class="next-prayer-section">
-                <div class="location">
-                    <div class="location-display">
-                        <span id="location-name">Loading...</span>
+                <!-- Top Bar: Date - Time - Hijri Date -->
+                <div class="top-bar">
+                    <div class="top-bar-left">
+                        <span id="gregorian-date-full"></span>
                     </div>
-                    <div class="location-actions">
-                        <button class="location-action-btn change-location-btn" id="change-location-btn" title="Change location manually">
-                            Change
-                        </button>
-                        <button class="location-action-btn update-location-btn" id="update-location-btn" title="Use my current location">
-                            Update
-                        </button>
+                    <div class="top-bar-center">
+                        <span id="current-time">19:12</span>
+                    </div>
+                    <div class="top-bar-right">
+                        <span id="hijri-date-full"></span>
+                    </div>
+                </div>
+                
+                <!-- Location Row in Top Bar -->
+                <div class="location-bar">
+                    <div class="location-name-small" id="location-name">Loading...</div>
+                    <div class="location-actions-inline">
+                        (<a href="#" class="location-link change-location-btn" id="change-location-btn">change</a>
+                        <span class="location-separator">•</span>
+                        <a href="#" class="location-link update-location-btn" id="update-location-btn">update</a>)
                     </div>
                 </div>
                 
                 <div class="countdown-wrapper">
-                    <p class="next-prayer-label">Time until</p>
+                    <p class="next-prayer-label">Upcoming Prayer</p>
                     <div class="prayer-name-wrapper">
-                        <span class="prayer-ornament left">❲</span>
+                        <span class="prayer-bracket left">(</span>
                         <h1 class="next-prayer-name" id="next-prayer-name">—</h1>
-                        <span class="prayer-ornament right">❳</span>
+                        <span class="prayer-bracket right">)</span>
                     </div>
                     <div class="countdown" id="countdown">
                         <div class="time-unit">
@@ -290,7 +280,7 @@
             <!-- All Prayer Times -->
             <div class="prayer-times-section">
                 <div class="section-header">
-                    <h2 class="section-title">Today's Prayer Times</h2>
+                    <h2 class="section-title" id="section-title">Prayer Timings</h2>
                     
                     <!-- Optional Prayers Toggle -->
                     <label class="optional-toggle">
@@ -312,7 +302,7 @@
                         🕌 Find Nearby Mosque
                     </a>
                 </div>
-                <p class="footer-credit">Data provided by <a href="https://aladhan.com" target="_blank">AlAdhan API</a></p>
+                <!-- <p class="footer-credit">Data provided by <a href="https://aladhan.com" target="_blank">AlAdhan API</a></p> -->
             </div>
         </div>
     </div>

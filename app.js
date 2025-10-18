@@ -7,6 +7,7 @@ const App = {
     currentLang: 'en',
     locationMode: 'auto', // 'auto' or 'manual'
     savedLocation: null,
+    savedGPSLocation: null, // Store GPS coordinates
     calculationMethod: 2, // Default: ISNA (2), Jafari (0)
     school: 1, // Default: Hanafi (1), Shafi (0)
     dateConverterInitialized: false,
@@ -49,6 +50,7 @@ const App = {
     translations: {
         en: {
             timeUntil: 'Time until',
+            prayerTimesLabel: 'Prayer times',
             todaysPrayerTimes: "Today's Prayer Times",
             hours: 'hours',
             minutes: 'minutes',
@@ -104,6 +106,7 @@ const App = {
         },
         ur: {
             timeUntil: 'نماز تک وقت',
+            prayerTimesLabel: 'نماز کے اوقات',
             todaysPrayerTimes: 'آج کی نماز کے اوقات',
             hours: 'گھنٹے',
             minutes: 'منٹ',
@@ -159,6 +162,7 @@ const App = {
         },
         ar: {
             timeUntil: 'الوقت المتبقي حتى',
+            prayerTimesLabel: 'مواقيت الصلاة',
             todaysPrayerTimes: 'مواقيت الصلاة اليوم',
             hours: 'ساعات',
             minutes: 'دقائق',
@@ -214,6 +218,7 @@ const App = {
         },
         hi: {
             timeUntil: 'नमाज़ तक समय',
+            prayerTimesLabel: 'नमाज़ का समय',
             todaysPrayerTimes: 'आज की नमाज़ का समय',
             hours: 'घंटे',
             minutes: 'मिनट',
@@ -269,6 +274,7 @@ const App = {
         },
         tr: {
             timeUntil: 'Kalan süre',
+            prayerTimesLabel: 'Namaz Vakitleri',
             todaysPrayerTimes: "Bugünün Namaz Vakitleri",
             hours: 'saat',
             minutes: 'dakika',
@@ -324,6 +330,7 @@ const App = {
         },
         id: {
             timeUntil: 'Waktu tersisa',
+            prayerTimesLabel: 'Waktu Shalat',
             todaysPrayerTimes: 'Waktu Shalat Hari Ini',
             hours: 'jam',
             minutes: 'menit',
@@ -379,6 +386,7 @@ const App = {
         },
         fa: {
             timeUntil: 'زمان باقی‌مانده تا',
+            prayerTimesLabel: 'اوقات نماز',
             todaysPrayerTimes: 'اوقات نماز امروز',
             hours: 'ساعت',
             minutes: 'دقیقه',
@@ -434,6 +442,7 @@ const App = {
         },
         fr: {
             timeUntil: 'Temps restant',
+            prayerTimesLabel: 'Horaires de prière',
             todaysPrayerTimes: "Horaires de Prière d'Aujourd'hui",
             hours: 'heures',
             minutes: 'minutes',
@@ -489,6 +498,7 @@ const App = {
         },
         bn: {
             timeUntil: 'বাকি সময়',
+            prayerTimesLabel: 'নামাজের সময়',
             todaysPrayerTimes: 'আজকের নামাজের সময়',
             hours: 'ঘণ্টা',
             minutes: 'মিনিট',
@@ -548,26 +558,53 @@ const App = {
     init() {
         this.currentLang = localStorage.getItem('language') || 'en';
         this.savedLocation = JSON.parse(localStorage.getItem('savedLocation'));
+        this.savedGPSLocation = JSON.parse(localStorage.getItem('savedGPSLocation'));
         this.calculationMethod = parseInt(localStorage.getItem('calculationMethod')) || 2;
         this.school = parseInt(localStorage.getItem('school')) || 1; // Default: Hanafi
         this.showOptionalPrayers = localStorage.getItem('showOptionalPrayers') === 'true';
         this.initNavigation();
-        this.initTheme();
         this.initLanguage();
         this.initSettings();
         this.initLocationModal();
         this.initCalculationMethod();
         this.initOptionalPrayersToggle();
+        this.updateCurrentTime();
         this.showLoading();
         
         // Check if user has saved location preference
         if (this.savedLocation) {
+            // User manually set a city/country
             this.locationMode = 'manual';
             this.fetchPrayerTimesByCity(this.savedLocation.city, this.savedLocation.country);
+        } else if (this.savedGPSLocation) {
+            // User previously shared GPS location
+            this.locationMode = 'auto';
+            this.fetchPrayerTimes(this.savedGPSLocation.latitude, this.savedGPSLocation.longitude);
         } else {
-            // Use automatic fallback location (IP/timezone) - don't prompt for GPS
+            // First time or no saved location - use automatic fallback (IP/timezone)
             this.useFallbackLocation();
         }
+    },
+
+    // Update current time display
+    updateCurrentTime() {
+        const updateTime = () => {
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const timeString = `${hours}:${minutes}`;
+            
+            const currentTimeElement = document.getElementById('current-time');
+            if (currentTimeElement) {
+                currentTimeElement.textContent = timeString;
+            }
+        };
+        
+        // Update immediately
+        updateTime();
+        
+        // Update every minute
+        setInterval(updateTime, 60000);
     },
 
     // Initialize language
@@ -802,32 +839,6 @@ const App = {
         });
     },
 
-    // Initialize theme
-    initTheme() {
-        const themeToggle = document.getElementById('theme-toggle');
-        
-        // Check for saved theme preference or default to light mode
-        const savedTheme = localStorage.getItem('theme') || 'light';
-        
-        // Apply saved theme
-        if (savedTheme === 'dark') {
-            document.body.classList.add('dark-mode');
-        }
-        
-        // Add click event listener to theme toggle button
-        themeToggle.addEventListener('click', () => {
-            this.toggleTheme();
-        });
-    },
-
-    // Toggle theme
-    toggleTheme() {
-        document.body.classList.toggle('dark-mode');
-        
-        // Save theme preference
-        const theme = document.body.classList.contains('dark-mode') ? 'dark' : 'light';
-        localStorage.setItem('theme', theme);
-    },
 
     // Initialize settings modal
     initSettings() {
@@ -904,8 +915,8 @@ const App = {
         }
         
         // Store location data
-        const latitude = this.prayerData?.meta?.latitude;
-        const longitude = this.prayerData?.meta?.longitude;
+        const latitude = this.prayerData?.meta?.latitude || this.savedGPSLocation?.latitude;
+        const longitude = this.prayerData?.meta?.longitude || this.savedGPSLocation?.longitude;
         
         // Reload prayer times with new school
         this.showLoading();
@@ -964,8 +975,8 @@ const App = {
         }
         
         // Store location data before clearing
-        const latitude = this.prayerData?.meta?.latitude;
-        const longitude = this.prayerData?.meta?.longitude;
+        const latitude = this.prayerData?.meta?.latitude || this.savedGPSLocation?.latitude;
+        const longitude = this.prayerData?.meta?.longitude || this.savedGPSLocation?.longitude;
         
         // DON'T clear prayerData - just update the method and refetch
         // This preserves location info until new data arrives
@@ -975,7 +986,7 @@ const App = {
         if (this.locationMode === 'manual' && this.savedLocation) {
             this.fetchPrayerTimesByCity(this.savedLocation.city, this.savedLocation.country);
         } else if (latitude && longitude) {
-            // Use stored coordinates
+            // Use stored coordinates (from savedGPSLocation or current data)
             this.fetchPrayerTimes(latitude, longitude);
         }
     },
@@ -1086,6 +1097,10 @@ const App = {
         this.locationMode = 'manual';
         localStorage.setItem('savedLocation', JSON.stringify(this.savedLocation));
         
+        // Clear saved GPS location since user manually set a location
+        this.savedGPSLocation = null;
+        localStorage.removeItem('savedGPSLocation');
+        
         this.closeLocationModal();
         this.showLoading();
         this.fetchPrayerTimesByCity(city, country);
@@ -1158,6 +1173,11 @@ const App = {
             (position) => {
                 const { latitude, longitude } = position.coords;
                 this.locationMode = 'auto';
+                
+                // Save GPS location to localStorage for future use
+                this.savedGPSLocation = { latitude, longitude };
+                localStorage.setItem('savedGPSLocation', JSON.stringify(this.savedGPSLocation));
+                
                 this.fetchPrayerTimes(latitude, longitude);
                 
                 // Update location display to show it's precise
@@ -1308,7 +1328,7 @@ const App = {
         setTimeout(() => {
             const locationDisplay = document.querySelector('#location-name');
             if (locationDisplay && cityName) {
-                locationDisplay.textContent = `📍 ${cityName} (approximate)`;
+                locationDisplay.textContent = `${cityName} (approximate)`;
                 locationDisplay.style.opacity = '0.8';
             }
         }, 100);
@@ -1400,11 +1420,32 @@ const App = {
         // Update nearby mosque link with coordinates
         this.updateMosqueLink(meta.latitude, meta.longitude);
 
-        // Update dates in header
+        // Update dates in header (old format - kept for compatibility)
         const gregorianDate = date.readable;
         const hijriDate = `${date.hijri.day} ${date.hijri.month.en} ${date.hijri.year} AH`;
-        document.getElementById('gregorian-date-header').textContent = gregorianDate;
-        document.getElementById('hijri-date-header').textContent = hijriDate;
+        if (document.getElementById('gregorian-date-header')) {
+            document.getElementById('gregorian-date-header').textContent = gregorianDate;
+        }
+        if (document.getElementById('hijri-date-header')) {
+            document.getElementById('hijri-date-header').textContent = hijriDate;
+        }
+        
+        // Update top bar full dates
+        if (document.getElementById('gregorian-date-full')) {
+            const gregorianFull = `${date.gregorian.weekday.en}, ${date.gregorian.month.en} ${date.gregorian.day}, ${date.gregorian.year}`;
+            document.getElementById('gregorian-date-full').textContent = gregorianFull;
+        }
+        if (document.getElementById('hijri-date-full')) {
+            const hijriFull = `${date.hijri.weekday.ar} ${date.hijri.day} ${date.hijri.month.ar} ${date.hijri.year} ${date.hijri.designation.abbreviated}`;
+            document.getElementById('hijri-date-full').textContent = hijriFull;
+        }
+        
+        // Update section title with date
+        const sectionTitle = document.getElementById('section-title');
+        if (sectionTitle) {
+            const shortDate = `${date.gregorian.month.en} ${date.gregorian.day}, ${date.gregorian.year}`;
+            sectionTitle.textContent = `Prayer Timings for ${shortDate}`;
+        }
 
         // Create prayer time cards
         const gridContainer = document.getElementById('prayer-times-grid');
@@ -1541,6 +1582,7 @@ const App = {
             // Update display with translated prayer name
             const t = this.translations[this.currentLang];
             const translatedPrayerName = t.prayers[this.nextPrayer.name] || this.nextPrayer.name;
+            
             document.getElementById('next-prayer-name').textContent = translatedPrayerName;
             document.getElementById('hours').textContent = String(hours).padStart(2, '0');
             document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
@@ -1887,6 +1929,8 @@ window.addEventListener('online', () => {
     // Optionally refresh prayer times
     if (App.locationMode === 'manual' && App.savedLocation) {
         App.fetchPrayerTimesByCity(App.savedLocation.city, App.savedLocation.country);
+    } else if (App.savedGPSLocation) {
+        App.fetchPrayerTimes(App.savedGPSLocation.latitude, App.savedGPSLocation.longitude);
     } else {
         App.getUserLocation();
     }
