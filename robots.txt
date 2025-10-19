@@ -11,7 +11,7 @@ Disallow: /
 # Allow: /
 # 
 # # Sitemap location
-# Sitemap: https://yourdomain.com/sitemap.xml
+# Sitemap: https://thesaadarshad.github.io/SalahApp/sitemap.xml
 # 
 # # Disallow service worker and manifest (not indexable)
 # Disallow: /service-worker.js
