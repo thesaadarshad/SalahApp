@@ -1,0 +1,28 @@
+# robots.txt for Salah - Islamic Prayer Times App
+# TEMPORARY: Blocking all bots until production domain is ready
+
+User-agent: *
+Disallow: /
+
+# Note: Remove the above "Disallow: /" when ready to go live with your domain
+# Then uncomment the configuration below:
+
+# User-agent: *
+# Allow: /
+# 
+# # Sitemap location
+# Sitemap: https://thesaadarshad.github.io/SalahApp/sitemap.xml
+# 
+# # Disallow service worker and manifest (not indexable)
+# Disallow: /service-worker.js
+# Disallow: /manifest.json
+# 
+# # Allow important resources
+# Allow: /index.html
+# Allow: /style.css
+# Allow: /app.js
+# Allow: /data/
+# 
+# # Crawl-delay (optional, adjust as needed)
+# Crawl-delay: 1
+

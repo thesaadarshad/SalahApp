@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+        http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+
+    <!-- Homepage / Prayer Times -->
+    <url>
+        <loc>https://thesaadarshad.github.io/SalahApp/</loc>
+        <lastmod>2025-01-20</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>1.0</priority>
+    </url>
+
+    <!-- Prayer Times Page -->
+    <url>
+        <loc>https://thesaadarshad.github.io/SalahApp/?page=prayer-times</loc>
+        <lastmod>2025-01-20</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>1.0</priority>
+    </url>
+
+    <!-- Date Converter Page -->
+    <url>
+        <loc>https://thesaadarshad.github.io/SalahApp/?page=date-converter</loc>
+        <lastmod>2025-01-20</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <!-- 99 Names of Allah Page -->
+    <url>
+        <loc>https://thesaadarshad.github.io/SalahApp/?page=asma-ul-husna</loc>
+        <lastmod>2025-01-20</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+</urlset>
+
