@@ -701,6 +701,26 @@ body.dark-mode .settings-change-link:hover {
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
 }
 
+.refresh-link {
+    display: inline-block;
+    margin-top: var(--space-lg);
+    padding: var(--space-sm) var(--space-lg);
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: var(--space-sm);
+    color: #FFFFFF;
+    text-decoration: none;
+    font-size: var(--text-sm);
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.refresh-link:hover {
+    background: rgba(255, 255, 255, 0.25);
+    border-color: rgba(255, 255, 255, 0.5);
+    transform: translateY(-1px);
+}
+
 .spinner {
     width: 60px;
     height: 60px;

@@ -12,6 +12,7 @@ const App = {
     school: 1, // Default: Hanafi (1), Shafi (0)
     dateConverterInitialized: false,
     showOptionalPrayers: false, // Toggle for optional prayer times
+    loadingTimeout: null, // Timeout to show refresh link
 
     // Method names mapping (for display)
     methodNames: {
@@ -1144,10 +1145,38 @@ const App = {
         document.getElementById('loading').classList.remove('hidden');
         document.getElementById('error').classList.add('hidden');
         document.getElementById('main-content').classList.add('hidden');
+        
+        // Hide refresh link initially
+        const refreshLink = document.getElementById('refresh-link');
+        if (refreshLink) {
+            refreshLink.classList.add('hidden');
+        }
+        
+        // Clear any existing timeout
+        if (this.loadingTimeout) {
+            clearTimeout(this.loadingTimeout);
+        }
+        
+        // Show refresh link after 15 seconds if still loading
+        this.loadingTimeout = setTimeout(() => {
+            if (refreshLink && !document.getElementById('loading').classList.contains('hidden')) {
+                refreshLink.classList.remove('hidden');
+                const loadingMessage = document.getElementById('loading-message');
+                if (loadingMessage) {
+                    loadingMessage.textContent = 'Taking longer than expected...';
+                }
+            }
+        }, 15000); // 15 seconds
     },
 
     // Show error state
     showError(message) {
+        // Clear loading timeout
+        if (this.loadingTimeout) {
+            clearTimeout(this.loadingTimeout);
+            this.loadingTimeout = null;
+        }
+        
         document.getElementById('loading').classList.add('hidden');
         document.getElementById('main-content').classList.add('hidden');
         document.getElementById('error').classList.remove('hidden');
@@ -1156,6 +1185,12 @@ const App = {
 
     // Show main content
     showContent() {
+        // Clear loading timeout
+        if (this.loadingTimeout) {
+            clearTimeout(this.loadingTimeout);
+            this.loadingTimeout = null;
+        }
+        
         document.getElementById('loading').classList.add('hidden');
         document.getElementById('error').classList.add('hidden');
         document.getElementById('main-content').classList.remove('hidden');
@@ -1250,7 +1285,15 @@ const App = {
     async getLocationFromIP() {
         try {
             // Using ipapi.co - free tier allows 1000 requests/day
-            const response = await fetch('https://ipapi.co/json/');
+            // Add timeout to prevent hanging
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 8000); // 8 second timeout
+            
+            const response = await fetch('https://ipapi.co/json/', {
+                signal: controller.signal
+            });
+            
+            clearTimeout(timeoutId);
             
             if (!response.ok) throw new Error('IP API failed');
             
@@ -1265,7 +1308,11 @@ const App = {
                 };
             }
         } catch (error) {
-            console.error('Error fetching IP location:', error);
+            if (error.name === 'AbortError') {
+                console.error('IP location request timed out');
+            } else {
+                console.error('Error fetching IP location:', error);
+            }
         }
         
         return null;

@@ -1,6 +1,6 @@
 // Service Worker for Prayer Times PWA
-const CACHE_NAME = 'prayer-times-v1.2.0';
-const PRAYER_CACHE_NAME = 'prayer-times-data-v1.2';
+const CACHE_NAME = 'prayer-times-v3.0.0';
+const PRAYER_CACHE_NAME = 'prayer-times-data-v3.0';
 const CACHE_DURATION_DAYS = 30;
 
 // Static assets to cache
@@ -12,6 +12,8 @@ const STATIC_ASSETS = [
     '/manifest.json',
     '/data/99-names.json',
     '/AgaArabesque-pwBr.ttf',
+    '/arabesque-bg.svg',
+    '/icon.svg',
     'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap'
 ];
 
@@ -22,9 +24,23 @@ self.addEventListener('install', (event) => {
         caches.open(CACHE_NAME)
             .then((cache) => {
                 console.log('[Service Worker] Caching static assets');
-                return cache.addAll(STATIC_ASSETS);
+                // Cache assets individually to handle failures gracefully
+                return Promise.allSettled(
+                    STATIC_ASSETS.map(url => 
+                        cache.add(url).catch(err => {
+                            console.warn(`[Service Worker] Failed to cache ${url}:`, err);
+                            return null;
+                        })
+                    )
+                );
             })
-            .then(() => self.skipWaiting())
+            .then(() => {
+                console.log('[Service Worker] Installation complete');
+                return self.skipWaiting();
+            })
+            .catch(err => {
+                console.error('[Service Worker] Installation failed:', err);
+            })
     );
 });
 

@@ -4,20 +4,14 @@
   "description": "Beautiful Islamic prayer times app with multi-language support and accurate calculations",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#FAFBFC",
-  "theme_color": "#667eea",
+  "background_color": "rgb(0, 103, 71)",
+  "theme_color": "rgb(0, 103, 71)",
   "orientation": "portrait-primary",
   "icons": [
     {
-      "src": "/icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "/icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png",
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
       "purpose": "any maskable"
     }
   ],
@@ -30,21 +24,21 @@
       "short_name": "Times",
       "description": "View today's prayer times",
       "url": "/?page=prayer-times",
-      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
+      "icons": [{ "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml" }]
     },
     {
       "name": "Date Converter",
       "short_name": "Converter",
       "description": "Convert Hijri and Gregorian dates",
       "url": "/?page=date-converter",
-      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
+      "icons": [{ "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml" }]
     },
     {
       "name": "99 Names",
       "short_name": "Names",
       "description": "View 99 Names of Allah",
       "url": "/?page=asma-ul-husna",
-      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
+      "icons": [{ "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml" }]
     }
   ]
 }
