@@ -1954,20 +1954,54 @@ window.addEventListener('beforeinstallprompt', (e) => {
     
     console.log('💾 PWA install prompt available');
     
-    // Optionally, show your own install button
-    // You can add a button in the UI and trigger installation like this:
-    // deferredPrompt.prompt();
-    // deferredPrompt.userChoice.then((choiceResult) => {
-    //     if (choiceResult.outcome === 'accepted') {
-    //         console.log('User accepted the install prompt');
-    //     }
-    //     deferredPrompt = null;
-    // });
+    // Show install button in navigation menu
+    const installContainer = document.getElementById('nav-install-container');
+    if (installContainer) {
+        installContainer.classList.remove('hidden');
+    }
 });
+
+// Handle install button click
+const installBtn = document.getElementById('nav-install-btn');
+if (installBtn) {
+    installBtn.addEventListener('click', async () => {
+        if (!deferredPrompt) {
+            console.log('No install prompt available');
+            return;
+        }
+        
+        // Show the install prompt
+        deferredPrompt.prompt();
+        
+        // Wait for the user's response
+        const { outcome } = await deferredPrompt.userChoice;
+        
+        if (outcome === 'accepted') {
+            console.log('✅ User accepted the install prompt');
+        } else {
+            console.log('❌ User dismissed the install prompt');
+        }
+        
+        // Clear the deferredPrompt
+        deferredPrompt = null;
+        
+        // Hide the install button
+        const installContainer = document.getElementById('nav-install-container');
+        if (installContainer) {
+            installContainer.classList.add('hidden');
+        }
+    });
+}
 
 window.addEventListener('appinstalled', () => {
     console.log('✅ PWA installed successfully');
     deferredPrompt = null;
+    
+    // Hide the install button
+    const installContainer = document.getElementById('nav-install-container');
+    if (installContainer) {
+        installContainer.classList.add('hidden');
+    }
 });
 
 // Handle online/offline status
