@@ -1,19 +1,19 @@
 // Service Worker for Prayer Times PWA
-const CACHE_NAME = 'prayer-times-v3.0.0';
-const PRAYER_CACHE_NAME = 'prayer-times-data-v3.0';
+const CACHE_NAME = 'prayer-times-v3.1.0';
+const PRAYER_CACHE_NAME = 'prayer-times-data-v3.1';
 const CACHE_DURATION_DAYS = 30;
 
 // Static assets to cache
 const STATIC_ASSETS = [
-    '/',
-    '/index.html',
-    '/style.css',
-    '/app.js',
-    '/manifest.json',
-    '/data/99-names.json',
-    '/AgaArabesque-pwBr.ttf',
-    '/arabesque-bg.svg',
-    '/icon.svg',
+    '/SalahApp/',
+    '/SalahApp/index.html',
+    '/SalahApp/style.css',
+    '/SalahApp/app.js',
+    '/SalahApp/manifest.json',
+    '/SalahApp/data/99-names.json',
+    '/SalahApp/AgaArabesque-pwBr.ttf',
+    '/SalahApp/arabesque-bg.svg',
+    '/SalahApp/icon.svg',
     'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap'
 ];
 
