@@ -1,0 +1,21 @@
+# robots.txt for Salah - Islamic Prayer Times App
+
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://yourdomain.com/sitemap.xml
+
+# Disallow service worker and manifest (not indexable)
+Disallow: /service-worker.js
+Disallow: /manifest.json
+
+# Allow important resources
+Allow: /index.html
+Allow: /style.css
+Allow: /app.js
+Allow: /data/
+
+# Crawl-delay (optional, adjust as needed)
+Crawl-delay: 1
+
